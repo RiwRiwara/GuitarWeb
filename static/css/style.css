@@ -1,20 +1,31 @@
 @use "@material";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-body {
+* {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings:
+        "slnt" 0;
+}
+
+.nav-link {
+    transition: transform 0.2s;
+}
+
+.nav-link:hover {
+    transform: scale(1.1);
+}
+
+
+/* body {
     font-family: roboto;
     margin: 2em;
     color: #3d3d3d;
     --mdc-theme-primary: #007f8b;
     --mdc-theme-on-primary: #f1f3f4;
-}
+} */
 
-h1 {
-    color: #007f8b;
-}
-
-h2 {
-    clear: both;
-}
 
 video {
     clear: both;
@@ -25,10 +36,10 @@ video {
     height: 280px;
 }
 
-section {
+/* section {
     opacity: 1;
     transition: opacity 500ms ease-in-out;
-}
+} */
 
 .removed {
     display: none;
@@ -38,6 +49,81 @@ section {
     opacity: 0.2;
 }
 
+/* #webcamButton{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    max-width: 600px; 
+    margin: auto; 
+    padding: 20px;
+} */
+
+.videoView button{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    max-width: 600px; 
+    margin: auto; 
+    
+    
+}
+
+/* .videoView {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    max-width: 600px; 
+    margin: auto; 
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
+
+.videoView video {
+    width: 100%;
+    max-width: 42%;
+    height: auto;
+    max-height: 50vh;
+    object-fit: none;
+    margin-top: 20px;
+    border-radius: 20px;
+    align-items: center;
+    margin: auto;
+    
+}
+
+
+.toggle-background {
+    background-color: rgb(209 213 219);
+    position: relative;
+    transition: background-color 0.3s;
+}
+
+.toggle-button {
+    position: absolute;
+    left: 1px;
+    top: 1px;
+    width: 24px;
+    height: 24px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+.toggle-trans{
+    transform: translateX(24px);
+}
+
+
 .detectOnClick {
     position: relative;
     float: left;
@@ -46,24 +132,23 @@ section {
     cursor: pointer;
 }
 
-.videoView {
+/* .videoView {
     position: absolute;
-    float: left;
+    float: center;
     width: 48%;
     margin: 2% 1%;
     cursor: pointer;
     min-height: 500px;
-}
+} */
 
 .videoView p,
 .detectOnClick p {
     padding-top: 5px;
     padding-bottom: 5px;
-    background-color: #007f8b;
-    color: #fff;
+    color: black;
     border: 1px dashed rgba(255, 255, 255, 0.7);
     z-index: 2;
-    margin: 0;
+    margin: auto;
 }
 
 .highlighter {
@@ -81,6 +166,7 @@ section {
 
 .output_canvas {
     transform: rotateY(180deg);
+    translate: -50;
     -webkit-transform: rotateY(180deg);
     -moz-transform: rotateY(180deg);
 }
@@ -96,6 +182,9 @@ section {
 
 .output {
     display: none;
+    text-align: center;
     width: 100%;
-    font-size: calc(8px + 1.2vw);
+    font-size: calc(0.25px + 1.2vw);
+    font-weight: 500;
 }
+

@@ -11,10 +11,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../static/js/script.js"></script>
+    
 </head>
-
+    
 <body class="bg-gray-100">
-
+    
     <header class="bg-white">
         <div class="flex justify-between items-center shadow-md px-10 py-6">
             <div class="flex items-center">
@@ -27,31 +28,35 @@
             </div>
         </div>
     </header>
-
+    
     <section class="flex flex-col gap-2 my-4 p-2">
-        <div class="text-3xl text-black font-bold text-center mt-8 mb-2">Welcome to Guitar Music</div>
+        <div class="text-3xl text-black font-bold text-center mt-14 mb-2">Welcome to Guitar Music</div>
         <div class="text-base text-gray-400 font-normal text-center">Let's try your first move with our model.</div>
     </section>
 
     <section id="demos">
         <div id="liveView" class="videoView">
-            <button class="flex items-center">
-                <div class="relative inline-block w-14 h-8">
-                    <input type="checkbox" id="camera-toggle" class="hidden">
-                    <label for="camera-toggle" class="toggle-label cursor-pointer">
-                        <span class="toggle-background block bg-gray-300 w-14 h-8 rounded-full">
-                            <span class="toggle-button absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-300"></span>
-                        </span>
-                    </label>
-                </div>                
+            <button id="webcamButton" class="flex items-center">
+                <!-- <span class="mdc-button__ripple"></span>
+                <span class="mdc-button__label">OPEN WEBCAM</span> -->
 
-                <div class="text-lg text-black font-semibold text-center ml-4">Camera</div>
+                <div class="flex justify-center">
+                    <div class="relative inline-block w-14 h-8">
+                        <input type="checkbox" id="toggle-button" class="hidden">
+                        <label for="toggle-button" class="cursor-pointer">
+                            <span class="block bg-gray-300 w-14 h-8 rounded-full"></span>
+                            <span class="absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-300 transform translate-x-0"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="text-lg text-black font-semibold text-center ml-4">Enable predictions</div>
             </button>
-
-            <div style="position: relative;" class="mt-4">
+            
+            <div style="position: relative;">
                 <video id="webcam" autoplay playsinline></video>
                 <canvas class="output_canvas" id="output_canvas" width="1280" height="720"
-                    style="position: absolute; left: 33%; top: 0px;"></canvas>
+                    style="position: absolute; left: 0px; top: 0px;"></canvas>
                 <p id="gesture_output" class="output"></p>
             </div>
         </div>
@@ -67,6 +72,7 @@
         const demosSection = document.getElementById("demos");
         let gestureRecognizer;
         let runningMode = "IMAGE";
+        let enableWebcamButton;
         let webcamRunning = false;
         const videoHeight = "360px";
         const videoWidth = "480px";
@@ -78,7 +84,9 @@
             );
             gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
                 baseOptions: {
-                    modelAssetPath: "{{ url_for('static', filename='gesture_recognizer.task') }}",
+                    modelAssetPath:
+                        //"https://storage.googleapis.com/mediapipe-models/gesture_recognizer/gesture_recognizer/float16/1/gesture_recognizer.task",
+                        "{{ url_for('static', filename='gesture_recognizer.task') }}",
                     delegate: "GPU"
                 },
                 runningMode: runningMode
@@ -86,6 +94,7 @@
             demosSection.classList.remove("invisible");
         };
         createGestureRecognizer();
+
 
         /********************************************************************
         // Demo 2: Continuously grab image from webcam stream and detect it.
@@ -101,90 +110,47 @@
             return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
         }
 
-
         // If webcam supported, add event listener to button for when user
         // wants to activate it.
         if (hasGetUserMedia()) {
-            const cameraToggle = document.getElementById("camera-toggle");
-            cameraToggle.addEventListener("change", handleCameraToggle);
-            
+            enableWebcamButton = document.getElementById("webcamButton");
+            enableWebcamButton.addEventListener("click", enableCam);
         } else {
             console.warn("getUserMedia() is not supported by your browser");
         }
 
-        //Handle cameta toggle
-        function handleCameraToggle(event) {
-            if (!gestureRecognizer) {
-                alert("Please wait for gestureRecognizer to load");
-                return;
-            }
-
-            const toggleBackground = document.querySelector("#camera-toggle + .toggle-label .toggle-background");
-            const toggleButton = document.querySelector(".toggle-button")
-
-            if (event.target.checked) {
-                startWebcam();
-                toggleBackground.style.backgroundColor = "#4CAF50"; 
-                toggleButton.classList.add("toggle-trans")
-
-            } else {
-                stopWebcam();
-                // document.getElementById("prediction-toggle").checked = false;
-                webcamRunning = false;
-                toggleBackground.style.backgroundColor = "rgb(209 213 219)";
-                toggleButton.classList.remove("toggle-trans")
-            }
-        }
-
         // Enable the live webcam view and start detection.
-        function handlePredictionToggle(event) {
+        function enableCam(event) {
             if (!gestureRecognizer) {
                 alert("Please wait for gestureRecognizer to load");
                 return;
             }
 
-            if (webcamRunning) {
-                webcamRunning = event.target.checked;
-
-                if (webcamRunning) {
-                    predictWebcam();
-                }
+            if (webcamRunning === true) {
+                webcamRunning = false;
+                enableWebcamButton.innerText = "Enable Predictions";
             } else {
-                alert("Please turn on the camera first");
-                event.target.checked = false;
+                webcamRunning = true;
+                enableWebcamButton.innerText = "Disable Predictions";
             }
-        }
 
-        function startWebcam() {
+            // getUsermedia parameters.
             const constraints = {
                 video: true
             };
 
+            // Activate the webcam stream.
             navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
                 video.srcObject = stream;
-                webcamRunning = document.getElementById("camera-toggle").checked;
-                if (webcamRunning) {
-                    video.addEventListener("loadeddata", predictWebcam);
-                }
+                video.addEventListener("loadeddata", predictWebcam);
             });
-        }
-
-        function stopWebcam() {
-            const stream = video.srcObject;
-            const tracks = stream.getTracks();
-
-            tracks.forEach(function (track) {
-                track.stop();
-            });
-
-            video.srcObject = null;
         }
 
         let lastVideoTime = -1;
         let results = undefined;
         async function predictWebcam() {
-            
             const webcamElement = document.getElementById("webcam");
+            // Now let's start detecting the stream.
             if (runningMode === "IMAGE") {
                 runningMode = "VIDEO";
                 await gestureRecognizer.setOptions({ runningMode: "VIDEO" });
@@ -229,14 +195,12 @@
                     results.gestures[0][0].score * 100
                 ).toFixed(2);
                 const handedness = results.handednesses[0][0].displayName;
-
-                gestureOutput.innerText = `Gesture Recognizer : ${categoryName}\n Confidence : ${categoryScore} %\n Handedness : ${handedness}`;
-                
+                gestureOutput.innerText = `GestureRecognizer: ${categoryName}\n Confidence: ${categoryScore} %\n Handedness: ${handedness}`;
             } else {
                 gestureOutput.style.display = "none";
             }
-
-            if (webcamRunning) {
+            // Call this function again to keep predicting when the browser is ready.
+            if (webcamRunning === true) {
                 window.requestAnimationFrame(predictWebcam);
             }
         }
