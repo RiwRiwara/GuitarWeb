@@ -62,18 +62,20 @@ video {
 
 
 
-
 .output_canvas {
     position: absolute;
     top: 0;
     left: 0;
     z-index: 11; 
     transform: rotateY(180deg);
-
+    width: 100%;
+    height: auto;
 }
 
+
 #webcam {
-    position: relative;
     z-index: 10; 
+    width: 100%;
+    height: auto;
 }
 

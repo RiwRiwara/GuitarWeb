@@ -32,6 +32,25 @@ const canvasElement = document.getElementById("output_canvas");
 const canvasCtx = canvasElement.getContext("2d");
 const gestureOutput = document.getElementById("gesture_output");
 
+window.addEventListener('resize', resizeCanvas);
+
+function resizeCanvas() {
+    const videoAspectRatio = video.videoWidth / video.videoHeight;
+    const containerWidth = video.parentElement.clientWidth;
+    const containerHeight = video.parentElement.clientHeight;
+
+    if (containerWidth / containerHeight < videoAspectRatio) {
+        video.style.width = '100%';
+        video.style.height = 'auto';
+    } else {
+        video.style.width = 'auto';
+        video.style.height = '100%';
+    }
+
+    canvasElement.width = video.videoWidth;
+    canvasElement.height = video.videoHeight;
+}
+
 function hasGetUserMedia() {
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
 }
@@ -76,7 +95,10 @@ function startWebcam() {
         video.srcObject = stream;
         webcamRunning = document.getElementById("camera-toggle").checked;
         if (webcamRunning) {
-            video.addEventListener("loadeddata", predictWebcam);
+            video.addEventListener("loadeddata", () => {
+                resizeCanvas();
+                predictWebcam();
+            });
         }
     });
 }
@@ -92,10 +114,10 @@ function stopWebcam() {
     video.srcObject = null;
 }
 
+
 let lastVideoTime = -1;
 let results = undefined;
 async function predictWebcam() {
-
     const webcamElement = document.getElementById("webcam");
     if (runningMode === "IMAGE") {
         runningMode = "VIDEO";
@@ -110,11 +132,6 @@ async function predictWebcam() {
     canvasCtx.save();
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     const drawingUtils = new DrawingUtils(canvasCtx);
-
-    canvasElement.style.height = videoHeight;
-    webcamElement.style.height = videoHeight;
-    canvasElement.style.width = videoWidth;
-    webcamElement.style.width = videoWidth;
 
     if (results.landmarks) {
         for (const landmarks of results.landmarks) {
@@ -136,12 +153,10 @@ async function predictWebcam() {
     
     if (results.gestures.length > 0) {
         gestureOutput.style.display = "block";
-        gestureOutput.style.width = videoWidth;
         const categoryName = results.gestures[0][0].categoryName;
         const categoryScore = parseFloat(
             results.gestures[0][0].score * 100
         ).toFixed(2);
-        // const handedness = results.handednesses[0][0].displayName;
 
         gestureOutput.innerText = `Gesture Recognizer : ${categoryName}\n Confidence : ${categoryScore} %`;
 
