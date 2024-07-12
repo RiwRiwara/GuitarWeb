@@ -1,7 +1,7 @@
 # app.py
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
-
+from resource.songs_data import songs
 app = Flask(__name__)
 socketio = SocketIO(app)
 
@@ -15,7 +15,7 @@ def detect():
 
 @app.route('/song')
 def song():
-    return render_template('page/song.html')
+    return render_template('page/song.html', songs=songs)
 
 @socketio.on('connect')
 def handle_connect():

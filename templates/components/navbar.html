@@ -1,13 +1,59 @@
 <header class="bg-white shadow-md px-10 py-2 mb-1">
-    <div class="flex justify-between items-center ">
+    <div class="flex justify-between items-center">
+        <button id="menu-button"
+            class="sm:hidden flex items-center px-3 py-2  rounded text-black  hover:text-primary-950 hover:border-primary-950">
+            <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <title>Menu</title>
+                <path d="M0 3h20v2H0zM0 7h20v2H0zM0 11h20v2H0z" />
+            </svg>
+        </button>
         <div class="flex items-center">
             <div class="w-5 h-5 bg-black rounded-full mr-2"></div>
-            <h1 class="text-2xl font-bold text-primary-950">Guitar Music</h1>
+            <h1 class="text-lg md:text-2xl lg:text-2xl font-bold text-primary-950">Guitar Music</h1>
         </div>
-        <div class="flex space-x-4">
+
+        <div id="menu" class="hidden sm:flex space-x-4">
             <a href="/" class="nav-link text-black font-semibold hover:scale-105 duration-300 ease-in-out">Home</a>
-            <a href="/detect" class="nav-link text-gray-500 font-semibold hover:scale-105 duration-300 ease-in-out">Chord Detector</a>
-            <a href="/song" class="nav-link text-gray-500 font-semibold hover:scale-105 duration-300 ease-in-out">Song Library</a>
+            <a href="/detect"
+                class="nav-link text-gray-500 font-semibold hover:scale-105 duration-300 ease-in-out">Chord Detector</a>
+            <a href="/song" class="nav-link text-gray-500 font-semibold hover:scale-105 duration-300 ease-in-out">Song
+                Library</a>
         </div>
     </div>
 </header>
+
+<div id="sidebar"
+    class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out sm:hidden">
+    <div class="flex items-center justify-between p-4">
+        <h2 class="text-2xl font-bold">Menu</h2>
+        <button id="close-sidebar" class="text-black">
+            <svg class="fill-current h-6 w-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <title>Close</title>
+                <path
+                    d="M18.36 6.64l-1.41-1.41L12 10.59 7.05 5.64 5.64 7.05 10.59 12l-4.95 4.95 1.41 1.41L12 13.41l4.95 4.95 1.41-1.41L13.41 12z" />
+            </svg>
+        </button>
+    </div>
+    <nav class="flex flex-col space-y-2 p-4">
+        <a href="/" class="nav-link text-black font-semibold hover:scale-105 duration-300 ease-in-out">Home</a>
+        <a href="/detect" class="nav-link text-gray-500 font-semibold hover:scale-105 duration-300 ease-in-out">Chord
+            Detector</a>
+        <a href="/song" class="nav-link text-gray-500 font-semibold hover:scale-105 duration-300 ease-in-out">Song
+            Library</a>
+    </nav>
+</div>
+
+<script>
+    const menuButton = document.getElementById('menu-button');
+    const sidebar = document.getElementById('sidebar');
+    const closeSidebar = document.getElementById('close-sidebar');
+
+    menuButton.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
+    });
+
+    closeSidebar.addEventListener('click', () => {
+        sidebar.classList.add('-translate-x-full');
+    });
+
+</script>

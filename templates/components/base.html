@@ -8,24 +8,35 @@
     <title>{% block title %}{% endblock %} - NSC</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css" rel="stylesheet" />
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <script src="https://code.createjs.com/1.0.0/soundjs.min.js"></script>
+</head>
 </head>
 
-<body>
+<body onload="loadSound();">
     {% include 'components/navbar.html' %}
-
 
     <div class="content">
         {% block content %}{% endblock %}
     </div>
 
     <footer>
-        <!-- Common footer content -->
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
     <script src="{{ url_for('static', filename='js/main_script.js') }}" type="module"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+    <!-- loading -->
+    <script>
+        window.addEventListener('load', () => {
+            const loader = document.querySelector('.loader');
+            loader.className += ' hidden';
+        });
+
+    </script>
 
 </body>
+
 </html>

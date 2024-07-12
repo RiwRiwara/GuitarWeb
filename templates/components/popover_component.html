@@ -1,0 +1,13 @@
+{% macro popover_component(id, chord_name) %}
+<a data-popover-target="{{ id }}" type="button" class="">
+    {{ chord_name }}
+</a>
+
+<div data-popover id="{{ id }}" role="tooltip"
+    class="absolute z-10 invisible inline-block w-32 text-sm text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+    <p class="p-4">Chord {{ chord_name }}</p>
+    <img src="{{ url_for('static', filename='images/chords/chord_' + chord_name.lower() + '.png') }}" alt="chord {{ chord_name }}" class="rounded">
+    
+    <div data-popper-arrow></div>
+</div>
+{% endmacro %}
