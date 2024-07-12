@@ -5,11 +5,17 @@ from flask_socketio import SocketIO, emit
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-
 @app.route('/')
 def index():
-    return render_template('home.html')
+    return render_template('page/home.html')
 
+@app.route('/detect')
+def detect():
+    return render_template('page/detect_page.html')
+
+@app.route('/song')
+def song():
+    return render_template('page/song.html')
 
 @socketio.on('connect')
 def handle_connect():

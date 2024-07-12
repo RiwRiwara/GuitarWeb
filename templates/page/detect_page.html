@@ -1,0 +1,47 @@
+{% extends 'components/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="bg-gray-100">
+    <section class="flex flex-col gap-4 p-2 my-2">
+        <div class="text-3xl text-black font-bold text-center">Welcome to Guitar Music</div>
+        <div class="text-base text-gray-400 font-normal text-center">Let's try your first move with our model.</div>
+    </section>
+
+    <section id="demos" class="grid grid-cols-2 gap-2 px-4 min-h-svh">
+
+        <section class="bg-sky-100 p-2 flex justify-content-center flex-col ">
+            <div>
+                <button class="flex items-center">
+                    <div class="relative inline-block w-14 h-8">
+                        <input type="checkbox" id="camera-toggle" class="hidden">
+                        <label for="camera-toggle" class="toggle-label cursor-pointer">
+                            <span class="toggle-background block bg-gray-300 w-14 h-8 rounded-full">
+                                <span
+                                    class="toggle-button absolute left-1 top-1 bg-white w-6 h-6 rounded-full transition-transform duration-300"></span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="text-lg text-black font-semibold text-center ml-4">Camera</div>
+                </button>
+            </div>
+            <div style="position: relative;">
+                <video id="webcam" autoplay playsinline class="rounded"></video>
+                <!-- <img id="chord" class="chord-overlay"  src="https://images.squarespace-cdn.com/content/v1/5b65dbac9772aea5c0403b5e/1625364107059-K0UVA1CVGV39EI4FOUDT/Guitar+G+Major+Chord+%23WorshipGuitarAcademy" alt=""> -->
+                <canvas class="output_canvas" id="output_canvas" width="680px" height="580px"></canvas>
+            </div>
+            <p id="gesture_output" class="output"></p>
+        </section>
+
+        <section class="p-2 bg-gray-200 rounded">
+            {% include 'songs/dont_look_back_the_anger.html' %}
+
+        </section>
+
+    </section>
+
+    <script src="{{ url_for('static', filename='js/main_script.js') }}" type="module"></script>
+</div>
+{% endblock %}

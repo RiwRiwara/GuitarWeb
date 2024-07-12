@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hand_gesture_recognizer"></script>
+    <title>{% block title %}{% endblock %} - NSC</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+
+<body>
+    {% include 'components/navbar.html' %}
+
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer>
+        <!-- Common footer content -->
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main_script.js') }}" type="module"></script>
+
+</body>
+</html>
