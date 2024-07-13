@@ -62,12 +62,16 @@ songs = {
             'genre': 'Pop',
             'image': '/static/images/song_banner/wakemeup.jpg'
         },
+  
         {
-            'title': 'Song Title 8',
-            'artist': 'Another Artist',
-            'duration': '4:20',
-            'image': 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg'
+            'title': 'Sugar',
+            'artist': 'Maroon 5',
+            'duration': '3:55',
+            'difficult' : 'intermediate',
+            'genre': 'Pop',
+            'image': '/static/images/song_banner/Sugar.jpg'
         },
+  
     ],
     "set3": [
         {
@@ -96,11 +100,14 @@ songs = {
             'image': '/static/images/song_banner/radioactive.gif'
         },
         {
-            'title': 'Song Title 12',
-            'artist': 'Another Artist',
-            'duration': '4:20',
-            'image': 'https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg'
+            'title': 'Hotel California',
+            'artist': 'Eagles',
+            'duration': '6:30',
+            'difficult' : 'intermediate',
+            'genre': 'Rock',
+            'image': '/static/images/song_banner/hotel.png'
         },
+
     ],
     "set4": [
                 {

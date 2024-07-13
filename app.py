@@ -1,7 +1,8 @@
 # app.py
-from flask import Flask, render_template
-from flask_socketio import SocketIO, emit
+from flask import Flask, render_template,  request, jsonify
+from flask_socketio import SocketIO
 from resource.songs_data import songs
+
 app = Flask(__name__)
 socketio = SocketIO(app)
 
@@ -15,7 +16,11 @@ def detect():
 
 @app.route('/song')
 def song():
-    return render_template('page/song.html', songs=songs)
+    difficult = request.args.get('difficult')
+    genre = request.args.get('genre')
+    name = request.args.get('name')
+    
+    return render_template('page/song.html', songs=songs, difficult=difficult, genre=genre, name=name)
 
 @socketio.on('connect')
 def handle_connect():

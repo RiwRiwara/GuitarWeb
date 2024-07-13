@@ -1,6 +1,6 @@
-
-<div class="max-w-sm mx-auto relative group cursor-pointer overflow-hidden duration-500 bg-gray-800 text-white p-0 rounded-md ">
-    <div class="">
+<div
+    class="max-w-sm mx-auto relative group cursor-pointer overflow-hidden duration-500 bg-gray-800 text-white p-0 rounded-md ">
+    <div class="{{ 'blur-md' if genre and genre != song.genre else '' }}">
         <div class="group-hover:scale-110  bg-blue-500 duration-500">
             <img class="w-full " src="{{ song.image }}" alt="{{ song.title }}">
 
