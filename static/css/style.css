@@ -183,8 +183,8 @@ video {
   .openai-logo {
     align-items: center;
     justify-content: center;
-    background-color: #0f1715; /* OpenAI's green color */
-    border-radius: 50%; /* This creates the circular background */
+    background-color: #0f1715; 
+    border-radius: 50%; 
   }
   
   .openai-icon {
