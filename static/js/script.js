@@ -1,6 +1,7 @@
 const soundIDs = ["chord_a", "chord_c", "chord_d", "chord_e", "chord_f", "chord_g"];
 let loadedSounds = 0;
 
+
 function loadSound() {
     soundIDs.forEach(soundID => {
         createjs.Sound.on("fileload", handleFileLoad, this);
@@ -36,3 +37,15 @@ function onLoadComplete() {
 }
 
 window.onload = onLoadPage;
+
+
+
+function generateRandomString(length = 4) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}

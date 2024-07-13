@@ -1,4 +1,3 @@
-
 {% extends 'components/base.html' %}
 {% block title %}Home{% endblock %}
 
@@ -6,27 +5,32 @@
 
 
 
-<div class="bg-gray-100">
+<div class="bg-gray-50">
 
     <section class="flex flex-col gap-4 p-2 my-2">
-        <div class="text-3xl text-black font-bold text-center">Welcome to Guitar Music</div>
-        <div class="text-base text-gray-400 font-normal text-center">Let's try your first move with our model.</div>
+        <div class="text-3xl text-black font-bold text-center">
+            Chord Detection with AI
+        </div>
+        <div class="text-xl text-gray-600 font-bold text-center">
+            Song : Don't Look Back in Anger by Oasis
+        </div>
     </section>
 
-    <section id="demos" class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 px-4 min-h-screen">
+
+    <section id="demos" class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 px-4 ">
         <section class="p-2 flex justify-content-center flex-col ">
-            <div>
+            <div class="bg-white dark:bg-gray-900 bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg')] dark:bg-[url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern-dark.svg')]">
                 <div
-                    class="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[8px] md:border-[16px] rounded-t-xl">
-                    <div class="rounded-xl overflow-hidden h-100  ">
-                        <div class="flex items-center justify-center ">
+                    class="relative mx-auto border-gray-300 bg-gray-500 border-[8px] md:border-[16px] rounded-xl ">
+                    <div class=" overflow-hidden h-100">
+                        <div class="flex items-center justify-center bg-gray-900 shadow-inner">
                             <div style="position: relative; width: 100%; max-width: 660px;">
-                                <video id="webcam" autoplay playsinline  class="rounded-md md:hidden" ></video>
-                                <canvas class="output_canvas  md:hidden" id="output_canvas" ></canvas>
-                                
+                                <video id="webcam" autoplay playsinline class="rounded-md md:hidden"></video>
+                                <canvas class="output_canvas  md:hidden" id="output_canvas"></canvas>
+
                                 <p id="gesture_output" class="output text-white"></p>
 
-                                <div class="flex items-center justify-center bg-gray-200 " id="placeholder_block">
+                                <div class="flex items-center justify-center bg-gray-100 " id="placeholder_block">
                                     <div class="text-base md:text-2xl text-black font-semibold text-center"
                                         id="camera_caution">
                                         <div class="">
@@ -66,22 +70,33 @@
                         </div>
                     </div>
                 </div>
+                {% from 'components/chord_card.html' import chord_card %}
+                <div class="flex flex-row justify-between gap-2 w-full my-2">
+                    {{ chord_card('chord_a_card', 'A') }}
+                    {{ chord_card('chord_c_card', 'C') }}
+                    {{ chord_card('chord_d_card', 'D') }}
+                    {{ chord_card('chord_e_card', 'E') }}
+                    {{ chord_card('chord_f_card', 'F') }}
+                    {{ chord_card('chord_g_card', 'G') }}
+                </div>
             </div>
-
         </section>
 
+        <div>
+            {% include 'components/setup_canvas.html' %}
+            <section id="section_2" class="p-4 bg-gray-100 rounded overflow-x-auto overflow-y-auto shadow-inner"
+                style="max-height: 700px;">
+                {% include 'songs/dont_look_back_the_anger.html' %}
+            </section>
+        </div>
 
-
-        <section class="p-2  rounded overflow-x-auto">
-            {% include 'songs/dont_look_back_the_anger.html' %}
-        </section>
 
     </section>
+</div>
 
-    <script src="{{ url_for('static', filename='js/main_script.js') }}" type="module"></script>
-    {% block scripts %}
-    <script src="{{ url_for('static', filename='js/detect_script.js') }}"></script>
-    {% endblock %}
+<script src="{{ url_for('static', filename='js/main_script.js') }}" type="module"></script>
+<script src="{{ url_for('static', filename='js/detect_script.js') }}"></script>
+
 
 </div>
 {% endblock %}

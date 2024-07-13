@@ -182,12 +182,14 @@ function onLoadPage() {
     console.log("Detect page is loading...");
     if (typeof onLoadComplete === 'function') {
         onLoadComplete();
+        loadSound();
+
     }
 }
 
 function onLoadComplete() {
     console.log("Detect page has loaded.");
-    createGestureRecognizer(); 
+    createGestureRecognizer();
 }
 
 window.onload = onLoadPage;

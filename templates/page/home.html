@@ -4,42 +4,57 @@
 
 {% block content %}
 
-<section class="bg-white">
+<section class="">
     <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
 
-        <h1
-            class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl ">
-            Guitar Learning Powered by AI
+        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl lg:text-6xl text-blue-900">
+            Guitar Learning <mark class="px-2 text-white bg-blue-900 rounded dark:bg-blue-500">Powered by AI</mark>
         </h1>
-        <p class="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 ">
-            Learn to play guitar with the help of AI. Select a song and start playing.
-        </p>
-        <div class="flex flex-col mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+        <p class="mb-8 text-lg font-normal text-gray-800 lg:text-xl sm:px-16 xl:px-48 ">
+            Learn to play guitar with the <span
+                class="underline underline-offset-3 decoration-8 decoration-blue-400 dark:decoration-blue-600">help of
+                AI</span></h1>. Select a song and start playing.
 
-            <a href="/detect" onclick="playSound('chord_a');"
-                class="hover:scale-105 duration-300 ease-in-out inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 ">
-                <svg class="mr-2 -ml-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z">
-                    </path>
-                </svg>
-                Chord Detection
-            </a>
+        </p>
+        <div
+            class="flex flex-col justify-center items-center mb-8 lg:mb-16 space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
+
+            <div class="button-container">
+                <a class="brutalist-button openai" href="/detect" onclick="playSound('chord_a');">
+                    <div class="openai-logo">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="openai-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z" />
+                        </svg>
+
+                    </div>
+                    <div class="button-text">
+                        <span>Chord</span>
+                        <span>Detection</span>
+                    </div>
+                </a>
+            </div>
+
+
+
+
             <a href="/song" onclick="playSound('chord_c');"
-                class="hover:scale-105 duration-300 ease-in-out inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 ">
+                class="bg-white hover:scale-105 duration-300 ease-in-out inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-gray-900 rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 ">
                 <svg class="mr-2 -ml-1 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                     stroke-width="1.5" stroke="currentColor" class="size-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
                 </svg>
-
                 Song Library
+
             </a>
+
         </div>
 
         {% from 'components/chord_card.html' import chord_card %}
-        <div class="flex flex-row justify-between gap-2 w-full my-2">
+        <div class="flex flex-row justify-between gap-2 w-full my-4">
             {{ chord_card('chord_a_card', 'A') }}
             {{ chord_card('chord_c_card', 'C') }}
             {{ chord_card('chord_d_card', 'D') }}
@@ -48,10 +63,9 @@
             {{ chord_card('chord_g_card', 'G') }}
         </div>
 
-        {% include 'components/imageGallery.html' %}
-
-
-
+        <div class="mt-2 shadow">
+            {% include 'components/imageGallery.html' %}
+        </div>
 
     </div>
 </section>
