@@ -160,7 +160,9 @@ const predictWebcam = async () => {
 
         gestureOutput.innerText = `Gesture Recognizer: ${categoryName}\nConfidence: ${categoryScore}%`;
     } else {
-        gestureOutput.style.display = "none";
+        if (gestureOutput.style.display === "block") {
+            gestureOutput.style.display = "none";
+        }
     }
 
     // Continue predicting if webcam is running
