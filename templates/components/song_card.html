@@ -1,33 +1,43 @@
-<div class="max-w-sm mx-auto rounded-lg overflow-hidden shadow-md bg-white hover:scale-105 duration-300 ease-in-out cursor-pointer">
-    <img class="w-full " src="{{ song.image }}" alt="{{ song.title }}">
-    <div class="p-4">
-        <div class="flex items-start flex-col mb-1 gap-1">
-            <div class="flex flex-row gap-1">
-                {% if song.difficult == 'beginner' %}
-                <a href="#"
-                    class="text-xs font-semibold me-2 px-2.5 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-400 hover:bg-blue-200 hover:text-blue-900">
-                    {{ song.difficult }}
-                </a>
-                {% elif song.difficult == 'intermediate' %}
-                <a href="#"
-                    class="text-xs font-semibold me-2 px-2.5 py-0.5 rounded bg-yellow-200 text-yellow-800 border border-yellow-400 hover:bg-yellow-300 hover:text-yellow-900">
-                    {{ song.difficult }}
-                </a>
-                {% elif song.difficult == 'advanced' %}
-                <a href="#"
-                    class="text-xs font-semibold me-2 px-2.5 py-0.5 rounded bg-red-200 text-red-800 border border-red-400 hover:bg-red-300 hover:text-red-900">
-                    {{ song.difficult }}
-                </a>
-                {% endif %}
-                <a href="#"
-                    class="bg-yellow-100 hover:bg-yellow-200 text-yellow-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded  border border-yellow-400 inline-flex items-center justify-center">
-                    {{ song.genre }}
-                </a>
+
+<div class="max-w-sm mx-auto relative group cursor-pointer overflow-hidden duration-500 bg-gray-800 text-white p-0 rounded-md ">
+    <div class="">
+        <div class="group-hover:scale-110  bg-blue-500 duration-500">
+            <img class="w-full " src="{{ song.image }}" alt="{{ song.title }}">
+
+        </div>
+        <div class="absolute left-0  -bottom-9 duration-500 group-hover:-translate-y-9 w-full">
+            <div
+                class="absolute -z-10 left-0 w-full h-28 opacity-50 duration-500 group-hover:opacity-80 group-hover:bg-gray-900 ">
             </div>
-            <div>
-                <h3 class="text-xl font-semibold text-primary-950">{{ song.title }}</h3>
-                <p class="text-gray-600">{{ song.artist }}</p>
-                <p class="text-gray-600">Duration: {{ song.duration }}</p>
+            <div class="px-4 py-2 text-white ">
+                <div class="flex items-start flex-col mb-1 gap-1">
+                    <div class="flex flex-row gap-1">
+                        {% if song.difficult == 'beginner' %}
+                        <a href="#"
+                            class="text-xs font-semibold me-2 px-2.5 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-400 hover:bg-blue-200 hover:text-blue-900">
+                            {{ song.difficult }}
+                        </a>
+                        {% elif song.difficult == 'intermediate' %}
+                        <a href="#"
+                            class="text-xs font-semibold me-2 px-2.5 py-0.5 rounded bg-yellow-200 text-yellow-800 border border-yellow-400 hover:bg-yellow-300 hover:text-yellow-900">
+                            {{ song.difficult }}
+                        </a>
+                        {% elif song.difficult == 'advanced' %}
+                        <a href="#"
+                            class="text-xs font-semibold me-2 px-2.5 py-0.5 rounded bg-red-200 text-red-800 border border-red-400 hover:bg-red-300 hover:text-red-900">
+                            {{ song.difficult }}
+                        </a>
+                        {% endif %}
+                        <a href="#"
+                            class="bg-yellow-100 hover:bg-yellow-200 text-yellow-800 text-xs font-semibold me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-yellow-400 border border-yellow-400 inline-flex items-center justify-center">
+                            {{ song.genre }}
+                        </a>
+                    </div>
+                    <div class="">
+                        <h3 class="text-xl font-semibold ">{{ song.title }}</h3>
+                        <div class="">{{ song.artist }}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
