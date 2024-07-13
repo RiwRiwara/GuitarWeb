@@ -11,6 +11,10 @@ const canvasCtx = canvasElement.getContext("2d");
 const placeholderBlock = document.getElementById("placeholder_block");
 const loadingSpinner = document.getElementById("loading_spinner");
 const cameraCaution = document.getElementById("camera_caution");
+const chord_image = document.getElementById("chord_image");
+
+const chord_result = document.getElementById("chord_result");
+const chord_result_con = document.getElementById("chord_result_con");
 
 const gestureOutput = document.getElementById("gesture_output");
 const cameraToggle = document.getElementById("camera-toggle");
@@ -158,10 +162,12 @@ const predictWebcam = async () => {
             results.gestures[0][0].score * 100
         ).toFixed(2);
 
-        gestureOutput.innerText = `Gesture Recognizer: ${categoryName}\nConfidence: ${categoryScore}%`;
+        chord_result.innerText = categoryName ? mapCategoryToChord(categoryName) : "-";
+        // chord_result_con.innerText = categoryScore;
+        chord_image.src = `static/images/chords/chord_${ mapCategoryToChord(categoryName).toLowerCase()}.png`;
     } else {
         if (gestureOutput.style.display === "block") {
-            gestureOutput.style.display = "none";
+            // gestureOutput.style.display = "none";
         }
     }
 
@@ -188,8 +194,26 @@ function onLoadPage() {
 }
 
 function onLoadComplete() {
-    console.log("Detect page has loaded.");
+console.log("Detect page has loaded.");
     createGestureRecognizer();
 }
 
 window.onload = onLoadPage;
+
+
+function mapCategoryToChord(category) {
+    switch (category) {
+        case "chord_a":
+            return "A";
+        case "chord_d":
+            return "D";
+        case "chord_e":
+            return "E";
+        case "chord_g":
+            return "G";
+        case "chord_c":
+            return "C";
+        default:
+            return "none";
+    }
+}

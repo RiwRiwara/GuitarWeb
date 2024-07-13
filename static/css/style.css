@@ -71,6 +71,16 @@ video {
     width: 100%;
     height: auto;
 }
+#gesture_output {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 11; 
+    height: auto;
+    transform: rotateY(-180deg) scaleX(-1);
+
+}
+
 
 
 #webcam {
@@ -86,7 +96,6 @@ video {
     min-height: 560px;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     #placeholder_block {
         min-height: auto;
@@ -101,7 +110,7 @@ video {
 .button-container {
     display: flex;
     justify-content: center;
-    gap: 20px; /* Adjust this value to increase or decrease space between buttons */
+    gap: 20px; 
     padding: 20px;
   }
   

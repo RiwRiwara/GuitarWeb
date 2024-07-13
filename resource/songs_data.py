@@ -8,7 +8,7 @@ songs = {
             'duration': '4:48',
             'difficult' : 'beginner',
             'genre': 'Rock',
-            'image': "/static/images/song_banner/Dont look back in anger.jpg"
+            'image': "/static/images/song_banner/Dontlookbackinanger.jpg"
         },
         {
             'title': 'Wonderwall',
