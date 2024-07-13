@@ -5,36 +5,45 @@ import {
 } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3";
 
 const demosSection = document.getElementById("demos");
-let gestureRecognizer;
-let runningMode = "IMAGE";
-let webcamRunning = false;
-const videoHeight = "580px";
-const videoWidth = "660px";
-
-const createGestureRecognizer = async () => {
-    const vision = await FilesetResolver.forVisionTasks(
-        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
-    );
-    gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
-        baseOptions: {
-            modelAssetPath: "https://ezeventstorage.blob.core.windows.net/model-nsc/chord_taskv2.task",
-            delegate: "GPU"
-        },
-        runningMode: runningMode
-    });
-    demosSection.classList.remove("invisible");
-};
-createGestureRecognizer();
-
-
 const video = document.getElementById("webcam");
 const canvasElement = document.getElementById("output_canvas");
 const canvasCtx = canvasElement.getContext("2d");
+const placeholderBlock = document.getElementById("placeholder_block");
+const loadingSpinner = document.getElementById("loading_spinner");
+const cameraCaution = document.getElementById("camera_caution");
+
 const gestureOutput = document.getElementById("gesture_output");
+const cameraToggle = document.getElementById("camera-toggle");
 
-window.addEventListener('resize', resizeCanvas);
+let gestureRecognizer;
+let runningMode = "IMAGE";
+let webcamRunning = false;
+let lastVideoTime = -1;
+let results = undefined;
 
-function resizeCanvas() {
+// Initialize gesture recognizer
+const createGestureRecognizer = async () => {
+    try {
+        const vision = await FilesetResolver.forVisionTasks(
+            "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
+        );
+        gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
+            baseOptions: {
+                modelAssetPath: "https://ezeventstorage.blob.core.windows.net/model-nsc/chord_taskv2.task",
+                delegate: "GPU"
+            },
+            runningMode: runningMode
+        });
+        demosSection.classList.remove("invisible");
+    } catch (error) {
+        console.error("Failed to initialize gesture recognizer:", error);
+    }
+};
+
+createGestureRecognizer();
+
+// Resize the canvas to match the video aspect ratio
+const resizeCanvas = () => {
     const videoAspectRatio = video.videoWidth / video.videoHeight;
     const containerWidth = video.parentElement.clientWidth;
     const containerHeight = video.parentElement.clientHeight;
@@ -49,86 +58,76 @@ function resizeCanvas() {
 
     canvasElement.width = video.videoWidth;
     canvasElement.height = video.videoHeight;
-}
+};
 
-function hasGetUserMedia() {
+window.addEventListener('resize', resizeCanvas);
+
+// Check if the browser supports getUserMedia
+const hasGetUserMedia = () => {
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
-}
+};
 
-if (hasGetUserMedia()) {
-    const cameraToggle = document.getElementById("camera-toggle");
-    cameraToggle.addEventListener("change", handleCameraToggle);
-
-} else {
-    console.warn("getUserMedia() is not supported by your browser");
-}
-
-function handleCameraToggle(event) {
+// Handle camera toggle
+const handleCameraToggle = (event) => {
+    cameraCaution.style.display = "none";
+    loadingSpinner.style.display = "block";
     if (!gestureRecognizer) {
-        alert("Please wait for gestureRecognizer to load");
+        cameraCaution.style.display = "block";
+        loadingSpinner.style.display = "none";
+        alert("Please wait for gesture recognizer to load");
         return;
     }
 
-    const toggleBackground = document.querySelector("#camera-toggle + .toggle-label .toggle-background");
-    const toggleButton = document.querySelector(".toggle-button")
-
     if (event.target.checked) {
         startWebcam();
-        toggleBackground.style.backgroundColor = "#4CAF50";
-        toggleButton.classList.add("toggle-trans")
-
     } else {
-        stopWebcam();
-        webcamRunning = false;
-        toggleBackground.style.backgroundColor = "rgb(209 213 219)";
-        toggleButton.classList.remove("toggle-trans")
+        location.reload();
     }
-}
+};
 
-
-function startWebcam() {
+// Start webcam
+const startWebcam = () => {
     const constraints = {
         video: true
     };
 
-    navigator.mediaDevices.getUserMedia(constraints).then(function (stream) {
-        video.srcObject = stream;
-        webcamRunning = document.getElementById("camera-toggle").checked;
-        if (webcamRunning) {
-            video.addEventListener("loadeddata", () => {
-                resizeCanvas();
-                predictWebcam();
-            });
-        }
-    });
-}
-
-function stopWebcam() {
-    const stream = video.srcObject;
-    const tracks = stream.getTracks();
-
-    tracks.forEach(function (track) {
-        track.stop();
-    });
-
-    video.srcObject = null;
-}
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then((stream) => {
+            video.srcObject = stream;
+            webcamRunning = cameraToggle.checked;
+            if (webcamRunning) {
+                video.addEventListener("loadeddata", () => {
+                    resizeCanvas();
+                    placeholderBlock.style.display = "none";
+                    predictWebcam();
+                });
+            }
+        })
+        .catch((error) => {
+            console.error("Error accessing webcam:", error);
+        });
+};
 
 
-let lastVideoTime = -1;
-let results = undefined;
-async function predictWebcam() {
-    const webcamElement = document.getElementById("webcam");
+
+// Predict gestures from webcam feed
+const predictWebcam = async () => {
+
     if (runningMode === "IMAGE") {
+        canvasElement.style.display = "block";
+        video.style.display = "block";
         runningMode = "VIDEO";
-        await gestureRecognizer.setOptions({ runningMode: "VIDEO" });
+        await gestureRecognizer.setOptions({ runningMode: "VIDEO" }).then(() => {
+        });
     }
+
     let nowInMs = Date.now();
     if (video.currentTime !== lastVideoTime) {
         lastVideoTime = video.currentTime;
         results = gestureRecognizer.recognizeForVideo(video, nowInMs);
     }
 
+    // Draw results
     canvasCtx.save();
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     const drawingUtils = new DrawingUtils(canvasCtx);
@@ -150,7 +149,8 @@ async function predictWebcam() {
         }
     }
     canvasCtx.restore();
-    
+
+    // Display gesture results
     if (results.gestures.length > 0) {
         gestureOutput.style.display = "block";
         const categoryName = results.gestures[0][0].categoryName;
@@ -158,13 +158,34 @@ async function predictWebcam() {
             results.gestures[0][0].score * 100
         ).toFixed(2);
 
-        gestureOutput.innerText = `Gesture Recognizer : ${categoryName}\n Confidence : ${categoryScore} %`;
-
+        gestureOutput.innerText = `Gesture Recognizer: ${categoryName}\nConfidence: ${categoryScore}%`;
     } else {
         gestureOutput.style.display = "none";
     }
 
+    // Continue predicting if webcam is running
     if (webcamRunning) {
         window.requestAnimationFrame(predictWebcam);
     }
+};
+
+// Attach event listener for camera toggle
+if (hasGetUserMedia()) {
+    cameraToggle.addEventListener("change", handleCameraToggle);
+} else {
+    console.warn("getUserMedia() is not supported by your browser");
 }
+
+function onLoadPage() {
+    console.log("Detect page is loading...");
+    if (typeof onLoadComplete === 'function') {
+        onLoadComplete();
+    }
+}
+
+function onLoadComplete() {
+    console.log("Detect page has loaded.");
+    createGestureRecognizer(); 
+}
+
+window.onload = onLoadPage;

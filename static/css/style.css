@@ -81,3 +81,19 @@ video {
 
 
 
+#placeholder_block {
+    min-width: 660px;
+    min-height: 560px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #placeholder_block {
+        min-height: auto;
+        min-width: 0;
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+
