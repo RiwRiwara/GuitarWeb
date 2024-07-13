@@ -49,3 +49,30 @@ function generateRandomString(length = 4) {
     }
     return result;
 }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const breadcrumbContainer = document.getElementById('breadcrumb');
+    const pathArray = window.location.pathname.split('/').filter(function(path) {
+        return path !== "";
+    });
+
+    if (pathArray.length === 0) {
+        breadcrumbContainer.innerHTML = '<a class="hover:text-gray-800 hover:font-semibold duration-300 ease-in" href="/">Home</a>';
+        return;
+    }
+
+    let breadcrumbHTML = '<a class="hover:text-gray-800 hover:font-semibold duration-300 ease-in" href="/">Home</a>';
+    let path = '';
+
+    pathArray.forEach(function(segment, index) {
+        path += `/${segment}`;
+        if (index === pathArray.length - 1) {
+            breadcrumbHTML += ` / <span>${segment}</span>`;
+        } else {
+            breadcrumbHTML += ` / <a href="${path}">${segment}</a>`;
+        }
+    });
+
+    breadcrumbContainer.innerHTML = breadcrumbHTML;
+});
