@@ -1,12 +1,16 @@
 const soundIDs = ["chord_a", "chord_c", "chord_d", "chord_e", "chord_f", "chord_g"];
 let loadedSounds = 0;
 
+songs_list = {
+    "dontlookback": "https://ezeventstorage.blob.core.windows.net/model-nsc/song1.mp3",
+}
 
 function loadSound() {
     soundIDs.forEach(soundID => {
         createjs.Sound.on("fileload", handleFileLoad, this);
         createjs.Sound.registerSound(`/static/sound/chords_sound/${soundID}.wav`, soundID);
     });
+    createjs.Sound.registerSound(songs_list['dontlookback'], "dontlookback");
 }
 
 function handleFileLoad(event) {
@@ -51,28 +55,28 @@ function generateRandomString(length = 4) {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    const breadcrumbContainer = document.getElementById('breadcrumb');
-    const pathArray = window.location.pathname.split('/').filter(function(path) {
-        return path !== "";
-    });
+// document.addEventListener('DOMContentLoaded', function() {
+//     const breadcrumbContainer = document.getElementById('breadcrumb');
+//     const pathArray = window.location.pathname.split('/').filter(function(path) {
+//         return path !== "";
+//     });
 
-    if (pathArray.length === 0) {
-        breadcrumbContainer.innerHTML = '<a class="hover:text-gray-800 hover:font-semibold duration-300 ease-in" href="/">Home</a>';
-        return;
-    }
+//     if (pathArray.length === 0) {
+//         breadcrumbContainer.innerHTML = '<a class="hover:text-gray-800 hover:font-semibold duration-300 ease-in" href="/">Home</a>';
+//         return;
+//     }
 
-    let breadcrumbHTML = '<a class="hover:text-gray-800 hover:font-semibold duration-300 ease-in" href="/">Home</a>';
-    let path = '';
+//     let breadcrumbHTML = '<a class="hover:text-gray-800 hover:font-semibold duration-300 ease-in" href="/">Home</a>';
+//     let path = '';
 
-    pathArray.forEach(function(segment, index) {
-        path += `/${segment}`;
-        if (index === pathArray.length - 1) {
-            breadcrumbHTML += ` / <span>${segment}</span>`;
-        } else {
-            breadcrumbHTML += ` / <a href="${path}">${segment}</a>`;
-        }
-    });
+//     pathArray.forEach(function(segment, index) {
+//         path += `/${segment}`;
+//         if (index === pathArray.length - 1) {
+//             breadcrumbHTML += ` / <span>${segment}</span>`;
+//         } else {
+//             breadcrumbHTML += ` / <a href="${path}">${segment}</a>`;
+//         }
+//     });
 
-    breadcrumbContainer.innerHTML = breadcrumbHTML;
-});
+//     breadcrumbContainer.innerHTML = breadcrumbHTML;
+// });

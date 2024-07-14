@@ -18,3 +18,37 @@ function setFontSize(mode) {
     }
 
 }
+
+
+let scrollInterval = null;
+const section = document.getElementById('section_2');
+
+function scrollContent(speed) {
+    clearInterval(scrollInterval);
+    let scrollSpeed = 1;
+    switch (speed) {
+        case 0:
+            return;
+        case 1:
+            scrollSpeed = 1;
+            break;
+        case 2:
+            scrollSpeed = 2;
+            break;
+        default:
+            scrollSpeed = 1;
+            break;
+    }
+
+    scrollInterval = setInterval(() => {
+        section.scrollTop += scrollSpeed;
+        if (section.scrollTop >= (section.scrollHeight - section.clientHeight)) {
+            section.scrollTop = 0;
+        }
+    }, 20);
+}
+
+function resetScroll() {
+    clearInterval(scrollInterval);
+    section.scrollTop = 0;
+}

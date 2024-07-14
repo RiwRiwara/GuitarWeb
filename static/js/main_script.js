@@ -162,7 +162,7 @@ const predictWebcam = async () => {
             results.gestures[0][0].score * 100
         ).toFixed(2);
 
-        chord_result.innerText = categoryName ? mapCategoryToChord(categoryName) : "-";
+        chord_result.innerText = categoryName ? (mapCategoryToChord(categoryName) == 'none' ? '-' : mapCategoryToChord(categoryName)) : "-";
         // chord_result_con.innerText = categoryScore;
         chord_image.src = `static/images/chords/chord_${ mapCategoryToChord(categoryName).toLowerCase()}.png`;
     } else {
