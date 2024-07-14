@@ -66,21 +66,21 @@
                 <div id="ddfontsizz" class="z-10 hidden w-48 bg-white divide-y divide-gray-100 rounded-lg shadow ">
                     <ul class="p-3 space-y-3 text-sm text-gray-700" aria-labelledby="ddfontsize">
                         <li onclick="setFontSize('X')">
-                            <div class="flex items-center" >
+                            <div class="flex items-center">
                                 <input checked id="default-radio-2" type="radio" value="" name="default-radio"
                                     class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 ">
                                 <label for="default-radio-2" class="ms-2 text-sm font-medium text-gray-900 ">1X</label>
                             </div>
                         </li>
                         <li onclick="setFontSize('X2')">
-                            <div class="flex items-center" >
+                            <div class="flex items-center">
                                 <input id="default-radio-1" type="radio" value="" name="default-radio"
                                     class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 ">
                                 <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900 ">2X</label>
                             </div>
                         </li>
                         <li onclick="setFontSize('X3')">
-                            <div class="flex items-center" >
+                            <div class="flex items-center">
                                 <input id="default-radio-1" type="radio" value="" name="default-radio"
                                     class="w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 ">
                                 <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900 ">3X</label>
@@ -112,14 +112,17 @@
     <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
 
         {% from 'components/chord_card.html' import chord_card %}
+        {% if song.chords %}
         <div class="flex flex-row justify-between gap-2 w-full my-2">
-            {{ chord_card('chord_a_card', 'A') }}
-            {{ chord_card('chord_c_card', 'C') }}
-            {{ chord_card('chord_d_card', 'D') }}
-            {{ chord_card('chord_e_card', 'E') }}
-            {{ chord_card('chord_f_card', 'F') }}
-            {{ chord_card('chord_g_card', 'G') }}
+            {% for chord in song.chords %}
+            {{ chord_card('chord_card_'+chord, chord) }}
+            {% endfor %}
         </div>
+        {% else %}
+        <div class="flex flex-row justify-center gap-2 w-full my-2">
+            Chord not available
+        </div>
+        {% endif %}
 
     </div>
 </div>

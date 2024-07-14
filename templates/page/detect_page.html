@@ -8,13 +8,21 @@
 <div class="bg-gray-50 px-2">
 
     <section class="flex flex-col gap-2 p-4 items-center justify-center">
-        <div class="text-2xl text-gray-600 font-bold ">
-            <mark class="px-2 text-white bg-blue-900 rounded ">Oasis</mark> Don't Look Back in Anger 
+        <div class="text-2xl text-gray-600 font-bold flex flex-row gap-2">
+            <mark class="px-2 text-white bg-blue-900 rounded ">
+                {{song.artist}}
+            </mark> {{song.title}}
         </div>
-        <a href="#"
-            class="text-xs font-semibold me-2 px-2.5 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-400 hover:bg-blue-200 hover:text-blue-900">
-            Beginer
-        </a>
+        <div class="flex flex-row gap-2">
+            <a href="/song?difficult={{song.difficult}}"
+                class="text-xs font-semibold me-2 px-2.5 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-400 hover:bg-blue-200 hover:text-blue-900">
+                {{song.difficult}}
+            </a>
+            <a href="/song?genre={{song.genre}}"
+                class="text-xs font-semibold me-2 px-2.5 py-0.5 rounded bg-blue-100 text-blue-800 border border-blue-400 hover:bg-blue-200 hover:text-blue-900">
+                {{song.genre}}
+            </a>
+        </div>
     </section>
 
 

@@ -4,6 +4,8 @@ songs = {
     "set1": [            
         {
             'title': 'Dont look back in anger',
+            'chords': ['C', 'G', 'A', 'E', 'F'],
+            'capo': 0,
             'artist': 'Oasis',
             'duration': '4:48',
             'difficult' : 'beginner',
@@ -12,6 +14,8 @@ songs = {
         },
         {
             'title': 'Wonderwall',
+            'chords': ['F', 'A', 'D', 'E'],
+            'capo': 0,
             'artist': 'Oasis',
             'duration': '4:20',
             'difficult' : 'intermediate',
@@ -21,6 +25,8 @@ songs = {
         {
             'title': 'Yesterday',
             'artist': 'The Beatles',
+            'chords': ['F', 'G', 'C', 'Am', 'Dm'],
+            'capo': 0,
             'duration': '2:05',
             'difficult' : 'beginner',
             'genre': 'Rock',
@@ -40,6 +46,8 @@ songs = {
         {
             'title': 'Love Story',
             'artist': 'Taylor Swift',
+            'chords': ['C', 'G', 'Am', 'F'],
+            'capo': 2,
             'duration': '3:57',
             'difficult' : 'beginner',
             'genre': 'Pop',
@@ -85,6 +93,8 @@ songs = {
         {
             'title': 'Cruel Summer',
             'artist': 'Taylor Swift',
+            'chords': ['G', 'D', 'Am', 'C','Bm'],
+            'capo': 2,
             'duration': '3:57',
             'difficult' : 'intermediate',
             'genre': 'Pop',

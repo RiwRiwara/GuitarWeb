@@ -2,13 +2,21 @@
 <div data-popover-target="{{ id }}" class="w-14 md:w-28  flex flex-col text-center bg-white rounded shadow-md">
     <div class="">{{ chord_name }}</div>
 
-    <img src="{{ url_for('static', filename='images/chords/chord_' + chord_name.lower() + '.png') }}"
-        alt="chord {{ chord_name }}" class="rounded">
+    {% set image_path = 'images/chords/chord_' + chord_name.lower() + '.png' %}
+    {% set default_image = 'images/chords/chord_none.png' %}
+
+    {% if static_file_exists(image_path) %}
+    <img src="{{ url_for('static', filename=image_path) }}" alt="chord {{ chord_name }}" class="rounded">
+    {% else %}
+    <img src="{{ url_for('static', filename=default_image) }}" alt="chord none" class="rounded">
+    {% endif %}
+
 </div>
 
 <div data-popover id="{{ id }}" role="tooltip"
     class="absolute z-10 invisible inline-block w-32 text-sm text-gray-500 transition-opacity duration-300 flex justify-center">
-    <button onclick="playSound('chord_{{ chord_name.lower()}}');" class="bg-blue-500 rounded-full p-1 text-white font-bold shadow-md">
+    <button onclick="playSound('chord_{{ chord_name.lower()}}');"
+        class="bg-blue-500 rounded-full p-1 text-white font-bold shadow-md">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round"
