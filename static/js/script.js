@@ -25,6 +25,7 @@ function handleFileLoad(event) {
 
 function playSound(soundID) {
     createjs.Sound.play(soundID);
+    
 }
 
 // Default onLoad function
