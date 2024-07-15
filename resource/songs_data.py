@@ -12,7 +12,25 @@ songs = {
             'duration': '4:48',
             'difficult' : 'beginner',
             'genre': 'Rock',
-            'image': "/static/images/song_banner/Dontlookbackinanger.gif"
+            'image': "/static/images/song_banner/Dontlookbackinanger.gif",
+            'chord_auto' : [
+                "C", "F", "C", "F",
+                "C", "G", "Am", "E7", "F", "G", "C", "Am", "G",
+                "C", "G", "Am", "E7", "F", "G", "C", "Am", "G",
+                "F", "Fm6", "C", "F", "Fm6", "C", "F", "Fm6", "C", "G", "E7/G#", "Am", "G", "F", "G",
+                "C", "G", "Am", "E7", "F", "G", "C", "Am", "G",
+                "C", "G", "Am", "E7", "F", "G",
+                "C", "G", "Am", "E7", "F", "G", "C", "Am", "G",
+                "C", "G", "Am", "E7", "F", "G", "C", "Am", "G",
+                "F", "Fm6", "C", "F", "Fm6", "C", "F", "Fm6", "C", "G", "E7/G#", "Am", "G", "F", "G",
+                "C", "G", "Am", "E7", "F", "G", "C", "Am", "G",
+                "C", "G", "Am", "E7", "F", "G",
+                "F", "Fm6", "C", "F", "Fm6", "C", "F", "Fm6", "C", "G", "E7/G#", "Am", "G", "F", "G",
+                "C", "G", "Am", "E7", "F", "G", "C", "Am", "G",
+                "C", "G", "Am", "E7", "F", "G",
+                "F", "Fm6", "C", "F", "Fm6", "C", "F", "Fm6", "C"
+]
+
         },
         {
             'id': 'song2',
@@ -24,7 +42,42 @@ songs = {
             'duration': '4:20',
             'difficult' : 'intermediate',
             'genre': 'Rock',
-            'image': '/static/images/song_banner/Wonderwall_cover.jpg'
+            'image': '/static/images/song_banner/Wonderwall_cover.jpg',
+            'chord_auto' : [
+  "F#m7", "A", "Esus4", "B7sus4",
+  "F#m7", "A", "Esus4", "B7sus4",
+  "F#m7", "A", "Esus4", "B7sus4",
+  "F#m7", "A", "Esus4", "B7sus4",
+  "F#m7", "A", "Esus4", "B7sus4",
+  "F#m7", "A", "Esus4", "B7sus4", "D", "Esus4", "B7sus4",
+  "F#m7", "A", "Esus4", "B7sus4",
+  "F#m7", "A", "Esus4", "B7sus4", "F#m7", "A", "Esus4", "B7sus4",
+  "D", "Esus4", "F#m",
+  "D", "Esus4", "F#m",
+  "D", "Esus4", "F#m7", "Esus4", "A", "Esus4", "B7sus4",
+  "D", "F#m7", "A",
+  "F#m7", "D", "F#m7", "A",
+  "F#m7", "D", "F#m7", "A",
+  "F#m7", "D", "F#m7", "A", "F#m7", "A",
+  "F#m7", "A", "Esus4", "B7sus4",
+  "F#m7", "A", "Esus4", "B7sus4",
+  "F#m7", "A", "Esus4", "B7sus4",
+  "F#m7", "A", "Esus4", "B7sus4",
+  "D", "Esus4", "F#m",
+  "D", "Esus4", "F#m",
+  "D", "Esus4", "F#m7", "Esus4", "A", "Esus4", "B7sus4",
+  "D", "F#m7", "A",
+  "F#m7", "D", "F#m7", "A",
+  "F#m7", "D", "F#m7", "A",
+  "F#m7", "D", "F#m7", "A", "F#m",
+  "D", "F#m7", "A",
+  "F#m7", "D", "F#m7", "A",
+  "F#m7", "D", "F#m7", "A", "F#m",
+  "D", "F#m7", "A",
+  "F#m7", "D", "F#m7", "A",
+  "F#m7", "D", "F#m7", "A", "F#m"
+]
+
         },
         {
             'id': 'song3',
@@ -37,7 +90,28 @@ songs = {
             'duration': '2:05',
             'difficult' : 'beginner',
             'genre': 'Rock',
-            'image': '/static/images/song_banner/the-beatles-yesterday.jpg'
+            'image': '/static/images/song_banner/the-beatles-yesterday.jpg',
+            'chord_auto' : [
+  "C", "G", "Am", "F",
+  "C", "F", "Am", "F",
+  "C", "F", "Am", "G",
+  "F", "G", "Am", "C",
+  "F", "G", "Am", "F", "G",
+  "C", "G", "Am", "F", "G", "C",
+  "C", "F", "Am", "G",
+  "F", "G", "Am", "C",
+  "F", "G", "Am", "F", "G",
+  "C", "G", "Am", "F", "G", "C",
+  "C", "G", "Am", "F", "G",
+  "C", "G", "Am", "F", "G",
+  "C", "G", "Am", "F", "G",
+  "Am", "F", "C", "G",
+  "Am", "F", "C", "G",
+  "C", "G", "Am", "F", "G",
+  "D", "A", "Bm", "G", "A", "D",
+  "A", "Bm", "G", "D"
+]
+
         },
         {
             'id': 'song4',
@@ -61,7 +135,40 @@ songs = {
             'duration': '3:57',
             'difficult' : 'beginner',
             'genre': 'Pop',
-            'image': '/static/images/song_banner/love_story.jpg'
+            'image': '/static/images/song_banner/love_story.jpg',
+            'chord_auto' : [
+            "C", "C/B", "F",
+            "C", "C/B", "F",
+            "C", "C/B", "F",
+            "C", "C/B", "F",
+            "C", "C/B", "F",
+            "Am", "G", "F",
+            "Am", "G", "F",
+            "C", "F", "Am", "G",
+            "C", "F", "Am", "G",
+            "C", "F", "Am", "G",
+            "C", "Fmaj7", "Am", "G",
+            "C", "Fadd9", "Am", "G",
+            "C", "Fadd9", "Am", "G",
+            "C", "C/B", "F",
+            "C", "C/B", "F",
+            "C", "C/B", "F",
+            "C", "C/B", "F",
+            "C", "C/B", "F",
+            "Am", "G", "F",
+            "Am", "G", "F",
+            "C", "F", "Am", "G",
+            "C", "F", "Am", "G",
+            "C", "F", "Am", "G",
+            "C", "Fmaj7", "Am", "G",
+            "C", "Fadd9", "Am", "G",
+            "C", "Fadd9", "Am", "G",
+            "C", "F", "Am", "G",
+            "C", "F", "Am", "G",
+            "C", "F", "Am", "G",
+            "C", "F", "Am", "G"
+            ]
+
 
         },
         {
@@ -74,7 +181,27 @@ songs = {
             'duration': '4:03',
             'difficult' : 'intermediate',
             'genre': 'Rock',
-            'image': '/static/images/song_banner/thesmith1.jpg'
+            'image': '/static/images/song_banner/thesmith1.jpg',
+            'chord_auto' : [
+  "Dm", "Fmaj7", "G",
+  "Am7", "G", "Am7", "G", "Fmaj7", "C", "G",
+  "Am7", "G", "Am7", "G", "Fmaj7", "C", "G",
+  "Am7", "G", "Am7", "G", "Fmaj7", "C", "G",
+  "Am7", "G", "Am7", "G", "Fmaj7", "C", "G",
+  "Dm", "Fmaj7", "G",
+  "C", "Am7", "Fmaj7", "G", "C", "Fmaj7", "Dm",
+  "C", "Am7", "Fmaj7", "G", "C", "Fmaj7", "Dm",
+  "Am7", "G", "Am7", "G", "Fmaj7", "C", "G",
+  "Am7", "G", "Am7", "G", "Fmaj7", "C", "G",
+  "Am7", "G", "Am7", "G", "Fmaj7", "C", "G",
+  "Am7", "G", "Am7", "G", "Fmaj7", "C", "G",
+  "Dm", "Fmaj7", "G",
+  "C", "Am7", "Fmaj7", "G", "C", "Fmaj7", "Dm",
+  "C", "Am7", "Fmaj7", "G", "C", "Fmaj7", "Dm",
+  "Am7", "G", "Am7", "G", "Fmaj7", "C", "G",
+  "Am7", "G", "Am7", "G", "Fmaj7", "C", "G"
+]
+
         },
         {
             'id': 'song7',

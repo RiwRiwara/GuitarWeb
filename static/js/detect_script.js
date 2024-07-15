@@ -25,18 +25,23 @@ const section = document.getElementById('section_2');
 
 function scrollContent(speed) {
     clearInterval(scrollInterval);
-    let scrollSpeed = 1;
+    let scrollSpeed = 1; // Initial slower speed
+    let intervalTime = 20; // Initial interval time
+
     switch (speed) {
         case 0:
             return;
         case 1:
-            scrollSpeed = 1;
+            scrollSpeed = 1; // Slower speed
+            intervalTime = 100; // Increase interval time for slower scroll
             break;
         case 2:
-            scrollSpeed = 2;
+            scrollSpeed = 2; // Moderate speed
+            intervalTime = 100;
             break;
         default:
             scrollSpeed = 1;
+            intervalTime = 100;
             break;
     }
 
@@ -45,7 +50,7 @@ function scrollContent(speed) {
         if (section.scrollTop >= (section.scrollHeight - section.clientHeight)) {
             section.scrollTop = 0;
         }
-    }, 20);
+    }, intervalTime);
 }
 
 function resetScroll() {
