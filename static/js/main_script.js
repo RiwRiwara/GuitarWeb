@@ -18,6 +18,7 @@ const chord_result_con = document.getElementById("chord_result_con");
 
 const gestureOutput = document.getElementById("gesture_output");
 const cameraToggle = document.getElementById("camera-toggle");
+const captureButton = document.getElementById("capture-button");
 
 let gestureRecognizer;
 let runningMode = "IMAGE";
@@ -33,7 +34,7 @@ const createGestureRecognizer = async () => {
         );
         gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
             baseOptions: {
-                modelAssetPath: "https://ezeventstorage.blob.core.windows.net/model-nsc/chord_taskv2.task",
+                modelAssetPath: "/static/dontlook.task",
                 delegate: "GPU"
             },
             runningMode: runningMode
@@ -162,9 +163,10 @@ const predictWebcam = async () => {
             results.gestures[0][0].score * 100
         ).toFixed(2);
 
-        chord_result.innerText = categoryName ? (mapCategoryToChord(categoryName) == 'none' ? '-' : mapCategoryToChord(categoryName)) : "-";
+        // chord_result.innerText = categoryName ? (mapCategoryToChord(categoryName) == 'none' ? '-' : mapCategoryToChord(categoryName)) : "-";
+        chord_result.innerText = categoryName;
         // chord_result_con.innerText = categoryScore;
-        chord_image.src = `static/images/chords/chord_${ mapCategoryToChord(categoryName).toLowerCase()}.png`;
+        chord_image.src = `static/images/chords/chord_${mapCategoryToChord(categoryName).toLowerCase()}.png`;
     } else {
         if (gestureOutput.style.display === "block") {
             // gestureOutput.style.display = "none";
@@ -194,7 +196,7 @@ function onLoadPage() {
 }
 
 function onLoadComplete() {
-console.log("Detect page has loaded.");
+    console.log("Detect page has loaded.");
     createGestureRecognizer();
 }
 
@@ -213,7 +215,49 @@ function mapCategoryToChord(category) {
             return "G";
         case "chord_c":
             return "C";
+        case "chord_f":
+            return "F";
+        case "chord_am":
+            return "Am";
         default:
             return "none";
     }
 }
+
+const captureImage = () => {
+    canvasCtx.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+    const imageUrl = canvasElement.toDataURL("image/jpg", 0.5);
+    const blob = dataURLToBlob(imageUrl);
+    const formData = new FormData();
+    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+    formData.append("file", blob, `captured_image_${timestamp}.jpg`);
+    fetch("http://localhost:5000/upload", {
+        method: "POST",
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("File saved successfully:", data);
+        })
+        .catch(error => {
+            console.error("Error saving file:", error);
+        });
+};
+
+const dataURLToBlob = (dataURL) => {
+    const parts = dataURL.split(',');
+    const mime = parts[0].match(/:(.*?);/)[1];
+    const bstr = atob(parts[1]);
+    const n = bstr.length;
+    const u8arr = new Uint8Array(n);
+
+    for (let i = 0; i < n; i++) {
+        u8arr[i] = bstr.charCodeAt(i);
+    }
+
+    return new Blob([u8arr], { type: mime });
+};
+
+
+captureButton.addEventListener("click", captureImage);
+
