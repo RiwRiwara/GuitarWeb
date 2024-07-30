@@ -34,7 +34,7 @@ const createGestureRecognizer = async () => {
         );
         gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
             baseOptions: {
-                modelAssetPath: "/static/dontlook.task",
+                modelAssetPath: "https://ezeventstorage.blob.core.windows.net/model-nsc/dontlook.task",
                 delegate: "GPU"
             },
             runningMode: runningMode
