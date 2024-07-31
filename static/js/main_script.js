@@ -34,7 +34,8 @@ const createGestureRecognizer = async () => {
         );
         gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
             baseOptions: {
-                modelAssetPath: "https://ezeventstorage.blob.core.windows.net/model-nsc/dontlook.task",
+                // modelAssetPath: "https://ezeventstorage.blob.core.windows.net/model-nsc/model6chord.task",
+                modelAssetPath: "/static/model6chord.task",
                 delegate: "GPU"
             },
             runningMode: runningMode
@@ -163,8 +164,11 @@ const predictWebcam = async () => {
             results.gestures[0][0].score * 100
         ).toFixed(2);
 
-        // chord_result.innerText = categoryName ? (mapCategoryToChord(categoryName) == 'none' ? '-' : mapCategoryToChord(categoryName)) : "-";
-        chord_result.innerText = categoryName;
+        var res_text = categoryName ? (mapCategoryToChord(categoryName) == 'none' ? '-' : mapCategoryToChord(categoryName)) : "-";
+        chord_result.innerText = res_text;
+
+        // chord_result.innerText = categoryName;
+
         // chord_result_con.innerText = categoryScore;
         chord_image.src = `static/images/chords/chord_${mapCategoryToChord(categoryName).toLowerCase()}.png`;
     } else {

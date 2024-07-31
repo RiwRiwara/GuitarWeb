@@ -283,6 +283,20 @@ songs = {
 
     ],
     "set4": [
+        
+        {
+            'id': 'song17',
+            'title': 'คนมีเสน่ห์',
+            'artist': 'ป้าง นครินทร์', 
+            'chords': ['E', 'C', 'G', 'D'],
+            'capo': 0,
+            'sound' : 'https://ezeventstorage.blob.core.windows.net/model-nsc/song1.mp3',
+            'duration': '3:36',
+            'difficult' : 'beginner',
+            'genre': 'Rock',
+            'image': '/static/images/song_banner/pang.jpg'
+        },
+        
         {
             'id': 'song13',
             'title': 'Thunder',
@@ -333,6 +347,7 @@ songs = {
             'genre': 'Rock',
             'image': '/static/images/song_banner/intheend.webp'
         },
+
 
     ]
 }

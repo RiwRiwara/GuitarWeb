@@ -15,6 +15,12 @@
         <div class="p-5 border border-b-0 border-sky-200  flex-row flex gap-2 items-center">
 
             <div>
+                <!-- input bpm -->
+                <label for="bpm" class="text-gray-700">BPM</label>
+                <input type="number" id="bpm" name="bpm" value="70" class="w-20 p-2 border border-gray-300 rounded"
+                    min="60" max="240">
+            </div>
+            <div>
                 <button id="dropdownRadioButton" data-dropdown-toggle="dropdownDefaultRadio"
                     class="flex flex-row items-center gap-1 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button">
@@ -55,8 +61,8 @@
                 <button id="ddfontsize" data-dropdown-toggle="ddfontsizz"
                     class="flex flex-row items-center gap-1 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     type="button">
-                    Zoom <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 10 6">
+                    Zoom <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="m1 1 4 4 4-4" />
                     </svg>
@@ -93,12 +99,20 @@
             </div>
 
             <div class="flex flex-row gap-2 bg-blue-100 rounded p-2 overflow-x-auto">
-                <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollContent(0)">Stop</button>
-                <button class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollContent(1)">1X</button>
-                <button class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="scrollContent(2)">2X</button>
-                <button class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="resetScroll()">Reset</button>
+                <button
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    onclick="scrollContent(0)">Stop</button>
+                <button
+                    class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    onclick="scrollContent(1)">1X</button>
+                <button
+                    class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    onclick="scrollContent(2)">2X</button>
+                <button
+                    class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    onclick="resetScroll()">Reset</button>
             </div>
-            
+
 
         </div>
     </div>

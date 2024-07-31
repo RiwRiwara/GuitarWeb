@@ -57,3 +57,60 @@ function resetScroll() {
     clearInterval(scrollInterval);
     section.scrollTop = 0;
 }
+
+
+function smoothScrollBy10px() {
+    var bpm = document.getElementById("bpm");
+    var bpm_value = bpm.value;
+    if (bpm_value == "") {
+        bpm_value = 60;
+    }
+    var bpm_value = bpm_value / 30;
+
+    const targetPosition = section.scrollTop + bpm_value;
+    const startPosition = section.scrollTop;
+    const distance = targetPosition - startPosition;
+    const duration = 500; // Duration of the scroll in milliseconds
+    let start = null;
+
+    function step(timestamp) {
+        if (!start) start = timestamp;
+        const progress = timestamp - start;
+        const increment = Math.min(progress / duration, 1); // Ensures the value stays within [0, 1]
+        section.scrollTop = startPosition + (distance * increment);
+
+        if (progress < duration) {
+            window.requestAnimationFrame(step);
+        } else {
+            // Reset scroll position if reached the end
+            if (section.scrollTop >= (section.scrollHeight - section.clientHeight)) {
+                section.scrollTop = 0;
+            }
+        }
+    }
+
+    window.requestAnimationFrame(step);
+}
+
+const chordResult = document.getElementById('chord_result');
+var step = 0;
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        if (mutation.type === 'childList' || mutation.type === 'characterData') {
+            if (chordResult.innerHTML !== '-') {
+                if (step > 20) {
+                    step = 0;
+                    smoothScrollBy10px();
+
+                }
+                step++;
+            }
+        }
+    });
+});
+
+observer.observe(chordResult, {
+    childList: true,
+    subtree: true,
+    characterData: true
+});
