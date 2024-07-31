@@ -34,8 +34,8 @@ const createGestureRecognizer = async () => {
         );
         gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
             baseOptions: {
-                // modelAssetPath: "https://ezeventstorage.blob.core.windows.net/model-nsc/model6chord.task",
-                modelAssetPath: "/static/model6chord.task",
+                modelAssetPath: "https://ezeventstorage.blob.core.windows.net/model-nsc/model6chord.task",
+                // modelAssetPath: "/static/model6chord.task",
                 delegate: "GPU"
             },
             runningMode: runningMode
