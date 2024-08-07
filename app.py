@@ -44,6 +44,10 @@ def song():
     
     return render_template('page/song.html', songs=songs, difficult=difficult, genre=genre, name=name, alert_message=alert_message)
 
+@app.route('/learn')
+def learn():
+    return render_template('page/learn.html')
+
 @socketio.on('connect')
 def handle_connect():
     print('Client connected')
