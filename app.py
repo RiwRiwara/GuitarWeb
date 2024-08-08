@@ -46,7 +46,12 @@ def song():
 
 @app.route('/learn')
 def learn():
-    return render_template('page/learn.html')
+    genre = request.args.get('genre')
+    return render_template('page/learn.html', genre=genre)
+
+@app.route('/course1')
+def course1():
+    return render_template('page/course1.html')
 
 @socketio.on('connect')
 def handle_connect():
