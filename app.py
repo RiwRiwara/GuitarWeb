@@ -53,6 +53,14 @@ def learn():
 def course1():
     return render_template('page/course1.html')
 
+@app.route('/blog')
+def blog():
+    return render_template('page/blog.html')
+
+@app.route('/blogcard')
+def blogcard():
+    return render_template('page/blog_card.html')
+
 @socketio.on('connect')
 def handle_connect():
     print('Client connected')
