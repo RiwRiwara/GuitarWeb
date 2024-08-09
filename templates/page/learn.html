@@ -40,9 +40,10 @@ block content %}
     <!--course1-->
     <div
       class="flex flex-col md:flex-row items-center h-auto md:h-48 mb-4 rounded bg-white shadow shadow-blue-200"
+      data-genre="Easy"
     >
       <div
-        class="px-4 md:px-8 flex flex-col md:flex-row justify-between items-center w-full"
+        class="py-0 md:py-6 px-4 md:px-8 flex flex-col md:flex-row justify-between items-center w-full"
       >
         <div class="flex flex-col md:flex-row items-center w-full">
           <img
@@ -95,9 +96,10 @@ block content %}
     <!--course2-->
     <div
       class="flex flex-col md:flex-row items-center h-auto md:h-48 mb-4 rounded bg-white shadow shadow-blue-200"
+      data-genre="Easy"
     >
       <div
-        class="px-4 md:px-8 flex flex-col md:flex-row justify-between items-center w-full"
+        class="py-0 md:py-6 px-4 md:px-8 flex flex-col md:flex-row justify-between items-center w-full"
       >
         <div class="flex flex-col md:flex-row items-center w-full">
           <img
@@ -150,9 +152,10 @@ block content %}
     <!--course3-->
     <div
       class="flex flex-col md:flex-row items-center h-auto md:h-48 mb-4 rounded bg-white shadow shadow-blue-200"
+      data-genre="Medium"
     >
       <div
-        class="px-4 md:px-8 flex flex-col md:flex-row justify-between items-center w-full"
+        class="py-0 md:py-6 px-4 md:px-8 flex flex-col md:flex-row justify-between items-center w-full"
       >
         <div class="flex flex-col md:flex-row items-center w-full">
           <img
@@ -205,9 +208,10 @@ block content %}
     <!--course4-->
     <div
       class="flex flex-col md:flex-row items-center h-auto md:h-48 mb-4 rounded bg-white shadow shadow-blue-200"
+      data-genre="Medium"
     >
       <div
-        class="px-4 md:px-8 flex flex-col md:flex-row justify-between items-center w-full"
+        class="py-0 md:py-6 px-4 md:px-8 flex flex-col md:flex-row justify-between items-center w-full"
       >
         <div class="flex flex-col md:flex-row items-center w-full">
           <img
@@ -260,9 +264,10 @@ block content %}
     <!--course5-->
     <div
       class="flex flex-col md:flex-row items-center h-auto md:h-48 mb-4 rounded bg-white shadow shadow-blue-200"
+      data-genre="Hard"
     >
       <div
-        class="px-4 md:px-8 flex flex-col md:flex-row justify-between items-center w-full"
+        class="py-0 md:py-6 px-4 md:px-8 flex flex-col md:flex-row justify-between items-center w-full"
       >
         <div class="flex flex-col md:flex-row items-center w-full">
           <img
@@ -314,5 +319,28 @@ block content %}
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const genre = "{{ genre|default('') }}";
+    const courseCards = document.querySelectorAll('[data-genre]');
+
+    if (!genre) {
+      
+      courseCards.forEach(card => {
+        card.style.display = 'block';
+      });
+    } else {
+      
+      courseCards.forEach(card => {
+        if (genre === card.getAttribute('data-genre')) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  });
+</script>
 
 {% endblock %}

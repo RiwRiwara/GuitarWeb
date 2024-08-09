@@ -47,7 +47,10 @@ def song():
 @app.route('/learn')
 def learn():
     genre = request.args.get('genre')
+    if genre is None:
+        genre = ''  
     return render_template('page/learn.html', genre=genre)
+
 
 @app.route('/course1')
 def course1():
