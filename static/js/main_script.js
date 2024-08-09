@@ -46,7 +46,7 @@ const createGestureRecognizer = async () => {
     }
 };
 
-createGestureRecognizer();
+
 
 
 const resizeCanvas = () => {
@@ -66,7 +66,7 @@ const resizeCanvas = () => {
     canvasElement.height = video.videoHeight;
 };
 
-window.addEventListener('resize', resizeCanvas);
+
 
 const hasGetUserMedia = () => {
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
@@ -89,7 +89,7 @@ const handleCameraToggle = (event) => {
     }
 };
 
-// Start webcam
+
 const startWebcam = () => {
     const constraints = {
         video: true
@@ -100,6 +100,7 @@ const startWebcam = () => {
             video.srcObject = stream;
             webcamRunning = cameraToggle.checked;
             if (webcamRunning) {
+                overlay_guide.style.display = "block";
                 video.addEventListener("loadeddata", () => {
                     resizeCanvas();
                     placeholderBlock.style.display = "none";
@@ -139,14 +140,21 @@ const predictWebcam = async () => {
                 landmarks,
                 GestureRecognizer.HAND_CONNECTIONS,
                 {
-                    color: "#00FF00",
+                    color: "#00ff00",
                     lineWidth: 1
                 }
             );
             drawingUtils.drawLandmarks(landmarks, {
                 color: "#ff0000",
-                lineWidth: 1
+                radius: 2,
             });
+
+            console.log(results.landmarks);
+            if (isHandPositionedCorrectly(landmarks)) {
+                overlay_guide.style.display = "none";
+            }else{
+                overlay_guide.style.display = "block";
+            }
         }
     }
     canvasCtx.restore();
@@ -171,27 +179,6 @@ const predictWebcam = async () => {
     }
 };
 
-if (hasGetUserMedia()) {
-    cameraToggle.addEventListener("change", handleCameraToggle);
-} else {
-    console.warn("getUserMedia() is not supported by your browser");
-}
-
-function onLoadPage() {
-    console.log("Detect page is loading...");
-    if (typeof onLoadComplete === 'function') {
-        onLoadComplete();
-        loadSound();
-
-    }
-}
-
-function onLoadComplete() {
-    console.log("Detect page has loaded.");
-    createGestureRecognizer();
-}
-
-window.onload = onLoadPage;
 
 
 function mapCategoryToChord(category) {
@@ -249,7 +236,37 @@ const dataURLToBlob = (dataURL) => {
     return new Blob([u8arr], { type: mime });
 };
 
+if (hasGetUserMedia()) {
+    cameraToggle.addEventListener("change", handleCameraToggle);
+} else {
+    console.warn("getUserMedia() is not supported by your browser");
+}
 
-captureButton.addEventListener("click", captureImage);
+const isHandPositionedCorrectly = (landmarks) => {
+    const handWithinBounds = landmarks.every(landmark =>
+        landmark.x > 0.2 && landmark.x < 0.8 &&
+        landmark.y > 0.2 && landmark.y < 0.8
+    );
+    return handWithinBounds;
+};
+
+
+function onLoadPage() {
+
+    if (typeof onLoadComplete === 'function') {
+        onLoadComplete();
+        loadSound();
+
+    }
+}
+
+function onLoadComplete() {
+    captureButton.addEventListener("click", captureImage);
+    window.addEventListener('resize', resizeCanvas);
+    createGestureRecognizer();
+}
+
+
+window.onload = onLoadPage;
 
 
