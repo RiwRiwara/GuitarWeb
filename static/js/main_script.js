@@ -133,7 +133,7 @@ const predictWebcam = async () => {
     canvasCtx.save();
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     const drawingUtils = new DrawingUtils(canvasCtx);
-
+    let isHandDetected = false;
     if (results.landmarks) {
         for (const landmarks of results.landmarks) {
             drawingUtils.drawConnectors(
@@ -149,15 +149,21 @@ const predictWebcam = async () => {
                 radius: 2,
             });
 
-            console.log(results.landmarks);
             if (isHandPositionedCorrectly(landmarks)) {
-                overlay_guide.style.display = "none";
-            }else{
-                overlay_guide.style.display = "block";
+                isHandDetected = true;
             }
         }
+    } else {
     }
+
+
     canvasCtx.restore();
+
+    if (isHandDetected) {
+        overlay_guide.style.display = "none";
+    } else {
+        overlay_guide.style.display = "block";
+    }
 
     if (results.gestures.length > 0) {
         gestureOutput.style.display = "block";
@@ -244,11 +250,13 @@ if (hasGetUserMedia()) {
 
 const isHandPositionedCorrectly = (landmarks) => {
     const handWithinBounds = landmarks.every(landmark =>
-        landmark.x > 0.2 && landmark.x < 0.8 &&
-        landmark.y > 0.2 && landmark.y < 0.8
+        landmark.x > 0.6 && landmark.x < 1.0 &&
+        landmark.y > 0.3 && landmark.y < 0.7   
     );
     return handWithinBounds;
 };
+
+
 
 
 function onLoadPage() {

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chord Sheet with Auto Slide</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 20px;
+        }
+
+        .lyrics-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .line {
+            font-size: 1.2em;
+            opacity: 0.5;
+            margin-top: 8px;
+            transition: opacity 1s, color 1s;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .chord {
+            font-weight: bold;
+            color: #333;
+            transition: color 1s;
+            line-height: 10px;
+        }
+
+        .lyric {
+            flex: 1;
+        }
+
+        .highlighted {
+            opacity: 1;
+        }
+
+        .highlighted .chord {
+            color: #ff0000;
+            /* Highlighted chord color */
+        }
+    </style>
+</head>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<body>
+    <div class="lyrics-container">
+        <div class="flex flex-row gap-2">
+            <div class="relative line" data-time="0">
+                <span class="absolute top-0 left-0 chord ">C</span>
+                <span class="lyric pt-4">Slip inside the </span>
+            </div>
+            <div class="relative line" data-time="1">
+                <span class="absolute top-0 left-0 chord">G</span>
+                <span class="lyric pt-4">eye of your mind</span>
+            </div>
+        </div>
+
+        <div class="flex flex-row gap-2">
+            <div class="relative line">
+                <span class="lyric pt-4">Don't you </span>
+            </div>
+            <div class="relative line" data-time="2">
+                <span class="absolute top-0 left-0 chord">E7</span>
+                <span class="lyric pt-4">know you might</span>
+            </div>
+            <div class="relative line" data-time="3">
+                <span class="absolute top-0 left-0 chord">F</span>
+                <span class="lyric pt-4">find</span>
+            </div>
+            <div class="relative line" data-time="3">
+                <span class="absolute top-0 right-0 chord">G</span>
+            </div>
+        </div>
+
+        <div class="flex flex-row gap-2">
+            <div class="relative line">
+                <span class="lyric pt-4">A better place to</span>
+            </div>
+            <div class="relative line" data-time="4">
+                <span class="absolute top-0 left-0 chord">C</span>
+                <span class="lyric pt-4">play</span>
+            </div>
+            <div class="relative line" data-time="5">
+                <span class="absolute top-0 left-0 chord">Am</span>
+            </div>
+            <div class="relative line" data-time="6">
+                <span class="absolute top-0 -right-10 chord">G</span>
+            </div>
+        </div>
+
+
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const lines = document.querySelectorAll('.line');
+            let currentIndex = 0;
+
+            function highlightNextLine() {
+                if (currentIndex > 0) {
+                    lines[currentIndex - 1].classList.remove('highlighted');
+                }
+
+                if (currentIndex < lines.length) {
+                    lines[currentIndex].classList.add('highlighted');
+                    currentIndex++;
+                    setTimeout(highlightNextLine, 1500); // Slide duration set to 1 second
+                }
+            }
+
+            highlightNextLine();
+        });
+
+    </script>
+</body>
+
+</html>

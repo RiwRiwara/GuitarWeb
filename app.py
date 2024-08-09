@@ -15,6 +15,12 @@ app.jinja_env.globals['static_file_exists'] = static_file_exists
 @app.route('/')
 def index():
     return render_template('page/home.html')
+@app.route('/test')
+def test():
+    return render_template('page/test.html')
+@app.route('/chord-slide')
+def chordslide():
+    return render_template('page/chord-slide.html')
 
 @app.route('/detect')
 def detect():

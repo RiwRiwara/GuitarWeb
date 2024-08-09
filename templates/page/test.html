@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Chord Detection</title>
+</head>
+
+<body>
+    <h1>Guitar Chord Detection</h1>
+    <p>
+        <button id="resume-button">Start</button>
+        <span id="chord">-</span>
+        <span id="pitch">-</span>
+        <span id="clarity">-</span>
+    </p>
+
+    <script type="module">
+        import { PitchDetector } from "https://esm.sh/pitchy@4";
+
+        // Known chords with corresponding frequencies
+        const chords = {
+            "A Major": [110.00, 130.81, 146.83, 220.00, 293.66],
+            "C Major": [130.81, 164.81, 196.00, 261.63, 329.63],
+            "E Major": [82.41, 110.00, 164.81, 220.00, 329.63],
+            "D Major": [73.42, 110.00, 146.83, 293.66, 440.00],
+            "G Major": [98.00, 123.47, 146.83, 196.00, 246.94],
+            "F Major": [87.31, 130.81, 174.61, 261.63, 349.23],
+            "A Minor": [110.00, 130.81, 164.81, 220.00, 261.63, 329.63],
+        };
+
+        function recognizeChord(detectedPitches) {
+            let recognizedChord = "Unknown";
+            let bestMatch = 0;
+
+            Object.entries(chords).forEach(([chord, freqs]) => {
+                const matchCount = freqs.filter(f => detectedPitches.some(p => Math.abs(p - f) < 2)).length;
+                if (matchCount > bestMatch) {
+                    bestMatch = matchCount;
+                    recognizedChord = chord;
+                }
+            });
+
+            return recognizedChord;
+        }
+
+        function updatePitch(analyserNode, detector, input, sampleRate) {
+            analyserNode.getFloatTimeDomainData(input);
+            const [pitch, clarity] = detector.findPitch(input, sampleRate);
+            const detectedPitches = [pitch]; // Modify to detect multiple pitches
+
+            const chord = recognizeChord(detectedPitches);
+
+            document.getElementById("chord").textContent = chord;
+            document.getElementById("pitch").textContent = `${Math.round(pitch * 10) / 10} Hz`;
+            document.getElementById("clarity").textContent = `${Math.round(clarity * 100)} %`;
+
+            window.setTimeout(() => updatePitch(analyserNode, detector, input, sampleRate), 100);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const audioContext = new window.AudioContext();
+            const analyserNode = audioContext.createAnalyser();
+
+            document.getElementById("resume-button").addEventListener("click", () => audioContext.resume());
+
+            navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+                audioContext.createMediaStreamSource(stream).connect(analyserNode);
+                const detector = PitchDetector.forFloat32Array(analyserNode.fftSize);
+                detector.minVolumeDecibels = -200;
+                const input = new Float32Array(detector.inputLength);
+                updatePitch(analyserNode, detector, input, audioContext.sampleRate);
+            });
+        });
+    </script>
+</body>
+
+</html>
