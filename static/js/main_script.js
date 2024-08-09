@@ -15,6 +15,7 @@ const chord_image = document.getElementById("chord_image");
 
 const chord_result = document.getElementById("chord_result");
 const chord_result_con = document.getElementById("chord_result_con");
+const overlay_guide = document.getElementById("overlay-guide");
 
 const gestureOutput = document.getElementById("gesture_output");
 const cameraToggle = document.getElementById("camera-toggle");
@@ -35,7 +36,6 @@ const createGestureRecognizer = async () => {
         gestureRecognizer = await GestureRecognizer.createFromOptions(vision, {
             baseOptions: {
                 modelAssetPath: "https://ezeventstorage.blob.core.windows.net/model-nsc/model6chord.task",
-                // modelAssetPath: "/static/model6chord.task",
                 delegate: "GPU"
             },
             runningMode: runningMode
@@ -48,7 +48,7 @@ const createGestureRecognizer = async () => {
 
 createGestureRecognizer();
 
-// Resize the canvas to match the video aspect ratio
+
 const resizeCanvas = () => {
     const videoAspectRatio = video.videoWidth / video.videoHeight;
     const containerWidth = video.parentElement.clientWidth;
@@ -68,12 +68,10 @@ const resizeCanvas = () => {
 
 window.addEventListener('resize', resizeCanvas);
 
-// Check if the browser supports getUserMedia
 const hasGetUserMedia = () => {
     return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
 };
 
-// Handle camera toggle
 const handleCameraToggle = (event) => {
     cameraCaution.style.display = "none";
     loadingSpinner.style.display = "block";
@@ -114,9 +112,6 @@ const startWebcam = () => {
         });
 };
 
-
-
-// Predict gestures from webcam feed
 const predictWebcam = async () => {
 
     if (runningMode === "IMAGE") {
@@ -156,7 +151,6 @@ const predictWebcam = async () => {
     }
     canvasCtx.restore();
 
-    // Display gesture results
     if (results.gestures.length > 0) {
         gestureOutput.style.display = "block";
         const categoryName = results.gestures[0][0].categoryName;
@@ -166,24 +160,17 @@ const predictWebcam = async () => {
 
         var res_text = categoryName ? (mapCategoryToChord(categoryName) == 'none' ? '-' : mapCategoryToChord(categoryName)) : "-";
         chord_result.innerText = res_text;
-
-        // chord_result.innerText = categoryName;
-
-        // chord_result_con.innerText = categoryScore;
         chord_image.src = `static/images/chords/chord_${mapCategoryToChord(categoryName).toLowerCase()}.png`;
     } else {
         if (gestureOutput.style.display === "block") {
-            // gestureOutput.style.display = "none";
         }
     }
 
-    // Continue predicting if webcam is running
     if (webcamRunning) {
         window.requestAnimationFrame(predictWebcam);
     }
 };
 
-// Attach event listener for camera toggle
 if (hasGetUserMedia()) {
     cameraToggle.addEventListener("change", handleCameraToggle);
 } else {
@@ -264,4 +251,5 @@ const dataURLToBlob = (dataURL) => {
 
 
 captureButton.addEventListener("click", captureImage);
+
 
