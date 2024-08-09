@@ -6,28 +6,29 @@
     <div class="flex flex-row overflow-y-auto">
       <a
         href="/learn"
-        class="{{ 'text-blue-700 border border-blue-600' if not genre else 'text-gray-900 border border-white ' }} bg-white hover:text-white hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 "
+        class=" {{ 'text-blue-700 border border-blue-600' if not genre else 'text-gray-900 border border-white ' }} bg-white hover:text-white hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 "
       >
         All</a
       >
       <a
         href="/learn?genre=Easy"
-        class="{{ 'text-blue-700 border border-blue-600' if genre == 'Rock' else 'text-gray-900 border border-white ' }} hover:border-gray-200  bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 "
+        class="{{ 'text-blue-700 border border-blue-600' if genre == 'Easy' else 'text-gray-900 border border-white ' }} hover:border-gray-200  bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 "
       >
         Easy
       </a>
       <a
         href="/learn?genre=Medium"
-        class="{{ 'text-blue-700 border border-blue-600' if genre == 'Pop' else 'text-gray-900 border border-white ' }} hover:border-gray-200  bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 "
+        class="{{ 'text-blue-700 border border-blue-600' if genre == 'Medium' else 'text-gray-900 border border-white ' }} hover:border-gray-200  bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 "
       >
         Medium
       </a>
       <a
         href="/learn?genre=Hard"
-        class="{{ 'text-blue-700 border border-blue-600' if genre == 'Alternative' else 'text-gray-900 border border-white ' }} hover:border-gray-200  bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 "
+        class="{{ 'text-blue-700 border border-blue-600' if genre == 'Hard' else 'text-gray-900 border border-white ' }} hover:border-gray-200  bg-white focus:ring-4 focus:outline-none focus:ring-gray-300 rounded-full text-base font-medium px-5 py-2.5 text-center me-3 mb-3 "
       >
         Hard
       </a>
     </div>
   </div>
 </div>
+
