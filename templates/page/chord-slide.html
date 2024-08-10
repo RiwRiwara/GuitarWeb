@@ -6,18 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chord Sheet with Auto Slide</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-            padding: 20px;
-        }
-
-        .lyrics-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
         .line {
             font-size: 1.2em;
             opacity: 0.5;
@@ -29,7 +17,7 @@
 
         .chord {
             font-weight: bold;
-            color: #333;
+            color: #333333;
             transition: color 1s;
             line-height: 10px;
         }
@@ -43,8 +31,8 @@
         }
 
         .highlighted .chord {
-            color: #ff0000;
-            /* Highlighted chord color */
+            color: #ff436c;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -52,52 +40,21 @@
 
 <body>
     <div class="lyrics-container">
+        {% for section in chord_data %}
         <div class="flex flex-row gap-2">
-            <div class="relative line" data-time="0">
-                <span class="absolute top-0 left-0 chord ">C</span>
-                <span class="lyric pt-4">Slip inside the </span>
+            {% for item in section %}
+            <div class="relative line" {% if item.time is defined %}data-time="{{ item.time }}" {% endif %} {% if
+                item.next is defined %}data-next="{{ item.next }}" {% endif %}>
+                {% if item.chord %}
+                <span
+                    class="absolute top-0 left-{% if item.left is defined %}{{ item.left }}{% else %}0{% endif %} chord">{{
+                    item.chord }}</span>
+                {% endif %}
+                <span class="lyric pt-4">{{ item.lyrics }}</span>
             </div>
-            <div class="relative line" data-time="1">
-                <span class="absolute top-0 left-0 chord">G</span>
-                <span class="lyric pt-4">eye of your mind</span>
-            </div>
+            {% endfor %}
         </div>
-
-        <div class="flex flex-row gap-2">
-            <div class="relative line">
-                <span class="lyric pt-4">Don't you </span>
-            </div>
-            <div class="relative line" data-time="2">
-                <span class="absolute top-0 left-0 chord">E7</span>
-                <span class="lyric pt-4">know you might</span>
-            </div>
-            <div class="relative line" data-time="3">
-                <span class="absolute top-0 left-0 chord">F</span>
-                <span class="lyric pt-4">find</span>
-            </div>
-            <div class="relative line" data-time="3">
-                <span class="absolute top-0 right-0 chord">G</span>
-            </div>
-        </div>
-
-        <div class="flex flex-row gap-2">
-            <div class="relative line">
-                <span class="lyric pt-4">A better place to</span>
-            </div>
-            <div class="relative line" data-time="4">
-                <span class="absolute top-0 left-0 chord">C</span>
-                <span class="lyric pt-4">play</span>
-            </div>
-            <div class="relative line" data-time="5">
-                <span class="absolute top-0 left-0 chord">Am</span>
-            </div>
-            <div class="relative line" data-time="6">
-                <span class="absolute top-0 -right-10 chord">G</span>
-            </div>
-        </div>
-
-
-
+        {% endfor %}
     </div>
 
     <script>
@@ -111,15 +68,18 @@
                 }
 
                 if (currentIndex < lines.length) {
-                    lines[currentIndex].classList.add('highlighted');
+                    const currentLine = lines[currentIndex];
+                    currentLine.classList.add('highlighted');
+
+                    const nextDelay = parseInt(currentLine.dataset.next) || 1500;  
+
                     currentIndex++;
-                    setTimeout(highlightNextLine, 1500); // Slide duration set to 1 second
+                    setTimeout(highlightNextLine, nextDelay);
                 }
             }
 
             highlightNextLine();
         });
-
     </script>
 </body>
 

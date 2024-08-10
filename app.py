@@ -20,7 +20,15 @@ def test():
     return render_template('page/test.html')
 @app.route('/chord-slide')
 def chordslide():
-    return render_template('page/chord-slide.html')
+    all_songs = songs['set1'] + songs['set2'] + songs['set3'] + songs['set4']
+    try:
+        selected_song = [song for song in all_songs if song['title'] == 'Dont look back in anger'][0]
+    except :
+        alert_message = 'Song not found'
+        return redirect('/song?alert_message=' + alert_message)
+    
+    
+    return render_template('page/chord-slide.html', chord_data=selected_song['chord_auto'])
 
 @app.route('/detect')
 def detect():

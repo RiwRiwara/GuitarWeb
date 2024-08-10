@@ -21,7 +21,8 @@
                             <div style="position: relative; width: 100%; max-width: 660px;">
                                 <video id="webcam" autoplay playsinline class="rounded-md md:hidden"></video>
                                 <canvas class="output_canvas  md:hidden" id="output_canvas"></canvas>
-                                <img id="overlay-guide"  src="/static/images/overlay_green.png" class="overlay-guide" alt="Overlay Guide">
+                                <img id="overlay-guide" src="/static/images/overlay_green.png" class="overlay-guide"
+                                    alt="Overlay Guide">
                                 <div id="gesture_output"
                                     class="w-fit text-white bg-blue-800 rounded p-2 m-2 flex justify-center flex-col items-center">
                                     <p>Chord : <span id="chord_result">-</span></p>
@@ -65,7 +66,7 @@
                                         <span class="sr-only">Loading...</span>
                                     </div>
 
-                                    
+
 
                                 </div>
 
@@ -84,8 +85,36 @@
 
             <section id="section_2" class="p-4 bg-gray-100 rounded overflow-x-auto overflow-y-auto shadow-inner"
                 style="max-height: 700px;">
+
+                {% if song.chord_auto %}
+                <div class="lyrics-container">
+                    {% for section in song.chord_auto %}
+                    <div class="flex flex-row gap-2">
+                        {% for item in section %}
+                        <div class="relative line" {% if item.time is defined %}data-time="{{ item.time }}" {% endif %}
+                            {% if item.next is defined %}data-next="{{ item.next }}" {% endif %}>
+                            {% if item.chord %}
+                            <span
+                                class="absolute top-0 left-{% if item.left is defined %}{{ item.left }}{% else %}0{% endif %} chord">{{
+                                item.chord }}</span>
+                            {% endif %}
+                            <span class="lyric pt-4">{{ item.lyrics }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% else %}
                 {% include 'songs/'+ song.id +'.html' %}
+                {% endif %}
+
+
+
+
             </section>
+
+
 
         </div>
 
@@ -95,13 +124,14 @@
 
 <script src="{{ url_for('static', filename='js/main_script.js') }}" type="module"></script>
 <script src="{{ url_for('static', filename='js/detect_script.js') }}"></script>
+<script src="{{ url_for('static', filename='js/auto_chord.js') }}"></script>
 
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const mode = urlParams.get('mode');
     if (mode == "debug") {
         document.getElementById("capture-button").style.display = "block";
-    }else{
+    } else {
         document.getElementById("capture-button").style.display = "none";
     }
 

@@ -288,4 +288,31 @@ video {
 
 
 
-  
+  .line {
+    font-size: 1.2em;
+    opacity: 0.5;
+    margin-top: 8px;
+    transition: opacity 1s, color 1s;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.chord {
+    font-weight: bold;
+    color: #333333;
+    transition: color 1s;
+    line-height: 10px;
+}
+
+.lyric {
+    flex: 1;
+}
+
+.highlighted {
+    opacity: 1;
+}
+
+.highlighted .chord {
+    color: #ff436c;
+    font-weight: bold;
+}

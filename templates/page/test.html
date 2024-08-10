@@ -4,31 +4,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guitar Chord Detection</title>
+    <title>Guitar Chord and Strumming Detection</title>
 </head>
 
 <body>
-    <h1>Guitar Chord Detection</h1>
+    <h1>Guitar Chord Detection with Strumming at 76 BPM</h1>
     <p>
-        <button id="resume-button">Start</button>
+        <button id="resume-button">
+            Resume Audio
+        </button>
         <span id="chord">-</span>
         <span id="pitch">-</span>
         <span id="clarity">-</span>
+        <span id="strum">-</span>
     </p>
 
     <script type="module">
         import { PitchDetector } from "https://esm.sh/pitchy@4";
 
-        // Known chords with corresponding frequencies
         const chords = {
-            "A Major": [110.00, 130.81, 146.83, 220.00, 293.66],
-            "C Major": [130.81, 164.81, 196.00, 261.63, 329.63],
+            "A Major": [55, 110.00, 130.81, 146.83, 220.00, 293.66],
+            "C Major": [32.72 ,130.81, 164.81, 196.00, 261.63, 329.63],
             "E Major": [82.41, 110.00, 164.81, 220.00, 329.63],
-            "D Major": [73.42, 110.00, 146.83, 293.66, 440.00],
+            "D Major": [36.71, 73.42, 110.00, 146.83, 293.66, 440.00],
             "G Major": [98.00, 123.47, 146.83, 196.00, 246.94],
             "F Major": [87.31, 130.81, 174.61, 261.63, 349.23],
             "A Minor": [110.00, 130.81, 164.81, 220.00, 261.63, 329.63],
         };
+
+        let chordLog = [];
+        let lastDetectedPitches = [];
+        let lastStrumTime = 0;
+        const strumThreshold = 200; 
+        const bpm = 76;
+        const strumInterval = (60 / bpm) * 1000; 
 
         function recognizeChord(detectedPitches) {
             let recognizedChord = "Unknown";
@@ -45,31 +54,65 @@
             return recognizedChord;
         }
 
-        function updatePitch(analyserNode, detector, input, sampleRate) {
-            analyserNode.getFloatTimeDomainData(input);
-            const [pitch, clarity] = detector.findPitch(input, sampleRate);
-            const detectedPitches = [pitch]; // Modify to detect multiple pitches
+        function detectStrum(detectedPitches) {
+            const now = Date.now();
+            if (detectedPitches.length > 0 && lastDetectedPitches.length > 0) {
+                const pitchChange = detectedPitches.some(pitch => !lastDetectedPitches.includes(pitch));
+                if (pitchChange && (now - lastStrumTime) > strumThreshold) {
+                    lastStrumTime = now;
+                    return true;
+                }
+            }
+            return false;
+        }
 
+        function getDetectedPitches(analyserNode, detector, input, sampleRate) {
+            analyserNode.getFloatTimeDomainData(input);
+            const detectedPitches = [];
+
+            for (let i = 0; i < input.length; i += detector.inputLength) {
+                const subInput = input.subarray(i, i + detector.inputLength);
+                const [pitch, clarity] = detector.findPitch(subInput, sampleRate);
+                if (clarity > 0.8) { 
+                    detectedPitches.push(pitch);
+                }
+                console.log(pitch, clarity);
+            }
+
+            return detectedPitches;
+        }
+
+        function updatePitch(analyserNode, detector, input, sampleRate) {
+            const detectedPitches = getDetectedPitches(analyserNode, detector, input, sampleRate);
             const chord = recognizeChord(detectedPitches);
+            const isStrum = detectStrum(detectedPitches);
+
+            if (chord !== "Unknown" && (chordLog.length === 0 || chordLog[chordLog.length - 1] !== chord)) {
+                chordLog.push(chord);
+                console.log("Chord detected:", chord, "Hz", detectedPitches );
+            }
 
             document.getElementById("chord").textContent = chord;
-            document.getElementById("pitch").textContent = `${Math.round(pitch * 10) / 10} Hz`;
-            document.getElementById("clarity").textContent = `${Math.round(clarity * 100)} %`;
+            document.getElementById("pitch").textContent = detectedPitches.map(p => `${Math.round(p * 10) / 10} Hz`).join(", ");
+            document.getElementById("clarity").textContent = detectedPitches.length > 0 ? "Detected" : "Not Detected";
+            document.getElementById("strum").textContent = isStrum ? "Strum Detected" : "-";
 
-            window.setTimeout(() => updatePitch(analyserNode, detector, input, sampleRate), 100);
+            lastDetectedPitches = detectedPitches;
+
+            window.setTimeout(() => updatePitch(analyserNode, detector, input, sampleRate), strumInterval);
         }
 
         document.addEventListener("DOMContentLoaded", () => {
             const audioContext = new window.AudioContext();
             const analyserNode = audioContext.createAnalyser();
+            analyserNode.fftSize = 2048;
 
             document.getElementById("resume-button").addEventListener("click", () => audioContext.resume());
 
             navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
                 audioContext.createMediaStreamSource(stream).connect(analyserNode);
                 const detector = PitchDetector.forFloat32Array(analyserNode.fftSize);
-                detector.minVolumeDecibels = -200;
-                const input = new Float32Array(detector.inputLength);
+                const input = new Float32Array(analyserNode.fftSize);
                 updatePitch(analyserNode, detector, input, audioContext.sampleRate);
             });
         });

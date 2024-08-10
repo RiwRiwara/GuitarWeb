@@ -60,7 +60,7 @@ function resetScroll() {
 
 
 function smoothScrollBy10px() {
-    var bpm = document.getElementById("bpm");
+    var bpm = 76;
     var bpm_value = bpm.value;
     if (bpm_value == "") {
         bpm_value = 60;
