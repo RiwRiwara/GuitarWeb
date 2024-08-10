@@ -11,7 +11,15 @@
 
 
     <section id="demos" class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-2  ">
+        
         <section class="p-2 flex justify-content-center flex-col ">
+            <p>
+                <span id="chord">-</span>
+                <span id="pitch">-</span>
+                <span id="clarity">-</span>
+                <span id="strum">-</span>
+            </p>
+        
             <div class="bg-white  ">
                 <button class="p-2 bg-blue-800 text-white" id="capture-button">Capture Image</button>
                 <div class="relative mx-auto border-gray-300 bg-gray-500 border-[8px] md:border-[16px] rounded-xl ">
@@ -21,7 +29,7 @@
                             <div style="position: relative; width: 100%; max-width: 660px;">
                                 <video id="webcam" autoplay playsinline class="rounded-md md:hidden"></video>
                                 <canvas class="output_canvas  md:hidden" id="output_canvas"></canvas>
-                                <img id="overlay-guide" src="/static/images/overlay_green.png" class="overlay-guide"
+                                <img id="overlay-guide" src="/static/images/overlay_green.png" class="overlay-guide ease-in-out duration-300"
                                     alt="Overlay Guide">
                                 <div id="gesture_output"
                                     class="w-fit text-white bg-blue-800 rounded p-2 m-2 flex justify-center flex-col items-center">
@@ -47,7 +55,7 @@
                                                         </span>
                                                     </label>
                                                 </div>
-                                                Open Camera
+                                                Start 
                                             </button>
                                         </div>
 
@@ -65,9 +73,6 @@
                                         </svg>
                                         <span class="sr-only">Loading...</span>
                                     </div>
-
-
-
                                 </div>
 
                             </div>
@@ -95,6 +100,7 @@
                             {% if item.next is defined %}data-next="{{ item.next }}" {% endif %}>
                             {% if item.chord %}
                             <span
+                                chord-data="{{ item.chord }}"
                                 class="absolute top-0 left-{% if item.left is defined %}{{ item.left }}{% else %}0{% endif %} chord">{{
                                 item.chord }}</span>
                             {% endif %}
@@ -108,16 +114,8 @@
                 {% else %}
                 {% include 'songs/'+ song.id +'.html' %}
                 {% endif %}
-
-
-
-
             </section>
-
-
-
         </div>
-
 
     </section>
 </div>
