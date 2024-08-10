@@ -8,28 +8,60 @@
             </svg>
         </button>
         <div class="flex items-center gap-1">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
-              </svg>
-              
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
+            </svg>
+
             <a href="/">
                 <h1 class="text-lg md:text-2xl lg:text-2xl font-bold text-primary-950">Guitar Music</h1>
             </a>
         </div>
 
         <div id="menu" class="hidden sm:flex space-x-4">
-            <a href="/" class="nav-link text-black font-semibold hover:scale-105 duration-300 ease-in-out">Home</a>
+            <a href="/"
+                class="nav-link text-black font-normal hover:scale-105 text-base duration-300 ease-in-out flex flex-row items-center ">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                </svg>
+
+            </a>
             <a href="/detect?song_title=Dont look back in anger"
-                class="nav-link text-gray-500 font-semibold hover:scale-105 duration-300 ease-in-out">Chord Detector</a>
-            <a href="/song" class="nav-link text-gray-500 font-semibold hover:scale-105 duration-300 ease-in-out">Song
+                class="nav-link text-gray-500 font-normal hover:scale-105 text-base duration-300 ease-in-out">Chord
+                Detector</a>
+            <a href="/song"
+                class="nav-link text-gray-500 font-normal hover:scale-105 text-base duration-300 ease-in-out">Song
                 Library</a>
-            <a href="/learn" class="nav-link text-gray-500 font-semibold hover:scale-105 duration-300 ease-in-out">Learning Space</a>
+            <a  id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
+                class="nav-link text-gray-500 font-normal hover:scale-105 text-base duration-300 ease-in-out">Learning
+                Space</a>
+
+
+            <!-- Dropdown menu -->
+            <div id="dropdown"
+                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
+                    <li>
+                        <a href="/learn"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Basic guitar</a>
+                    </li>
+                    <li>
+                        <a href="/blog"
+                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Blogs</a>
+                    </li>
+
+                </ul>
+            </div>
+
+
         </div>
     </div>
 </header>
 
-<div id="sidebar"
-style="z-index: 1000;"
+<div id="sidebar" style="z-index: 1000;"
     class="fixed top-0 left-0 w-64 h-full bg-white shadow-lg transform -translate-x-full transition-transform duration-300 ease-in-out sm:hidden z-">
     <div class="flex items-center justify-between p-4">
         <h2 class="text-2xl font-bold">Menu</h2>
@@ -42,12 +74,16 @@ style="z-index: 1000;"
         </button>
     </div>
     <nav class="flex flex-col space-y-2 p-4">
-        <a href="/" class="nav-link text-black font-semibold hover:scale-105 duration-300 ease-in-out">Home</a>
-        <a href="/detect?song_title=Dont look back in anger" class="nav-link text-gray-500 font-semibold hover:scale-105 duration-300 ease-in-out">Chord
+        <a href="/" class="nav-link text-black font-normal hover:scale-105 text-base duration-300 ease-in-out">Home</a>
+        <a href="/detect?song_title=Dont look back in anger"
+            class="nav-link text-gray-500 font-normal hover:scale-105 text-base duration-300 ease-in-out">Chord
             Detector</a>
-        <a href="/song" class="nav-link text-gray-500 font-semibold hover:scale-105 duration-300 ease-in-out">Song
+        <a href="/song"
+            class="nav-link text-gray-500 font-normal hover:scale-105 text-base duration-300 ease-in-out">Song
             Library</a>
-        <a href="/learn" class="nav-link text-gray-500 font-semibold hover:scale-105 duration-300 ease-in-out">Learning Space</a>
+        <a href="/learn"
+            class="nav-link text-gray-500 font-normal hover:scale-105 text-base duration-300 ease-in-out">Learning
+            Space</a>
 
     </nav>
 </div>
