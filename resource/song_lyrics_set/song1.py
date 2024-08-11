@@ -1,15 +1,15 @@
 song1_lyrics  = [
     [   
         {
-                "id" : "1",
-                "status" : "active",
-                "time": 0,
-                "chord": "C",
+                "id" : "1", #อดีของเนื้อเพลง ไล่เรียงตามลำดับ
+                "status" : "active", # สถานะ active 
+                "time": 0, #  ลำดับเวลาที่เริ่มเล่น
+                "chord": "C", # คอร์ด
                 "lyrics": "Slip inside the",
                 
         },
         {
-                "id" : "2",
+                "id" : "2", 
                 "status" : "active",
                 "time": 1,
                 "chord": "G",
@@ -24,7 +24,7 @@ song1_lyrics  = [
                 "lyrics": "mind",
                 "next": 1800
         },
-    ],
+    ], # จบเนื้อเพลงบรรทัดแรก
     [   
         {
                 "id" : "4",
