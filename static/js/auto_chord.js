@@ -96,6 +96,10 @@ document.getElementById('userInput').addEventListener('input', () => {
 }
 );
 
+document.getElementById('skipButton').addEventListener('click', () => {
+    skipChord();
+});
+
 function highlightNextLine() {
     if (currentIndex > 0) {
         lines[currentIndex - 1].classList.remove('highlighted');
@@ -112,3 +116,19 @@ function highlightNextLine() {
     }
 }
 
+// Function to skip to the next chord
+function skipChord() {
+    if (currentIndex < lines.length - 1) {
+        lines[currentIndex].classList.remove('highlighted');
+        currentIndex++;
+        lines[currentIndex].classList.add('highlighted');
+
+        // If autoplay is not paused, continue playing from the next chord
+        if (!isPaused) {
+            clearTimeout(timeoutId);
+            playChordSlide();
+        }
+    } else {
+        pauseSlide();
+    }
+}
