@@ -1,5 +1,7 @@
 # songs_data.py
 from resource.song_lyrics_set.song1 import song1_lyrics
+from resource.song_lyrics_set.song5 import song5_lyrics
+
 songs = {
     "set1": [            
         {
@@ -68,6 +70,7 @@ songs = {
             'difficult' : 'beginner',
             'genre': 'Pop',
             'image': '/static/images/song_banner/love_story.jpg',
+            'chord_auto' : song5_lyrics
 
 
         },
