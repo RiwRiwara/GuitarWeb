@@ -280,6 +280,8 @@ const predictWebcam = async () => {
         }
             */
         chord_result.innerText = res_text;
+        document.getElementById('userInput').value = res_text;
+        document.getElementById('userInput').dispatchEvent(new Event('input', { bubbles: true }));
         chord_image.src = `static/images/chords/chord_${mapCategoryToChord(categoryName).toLowerCase()}.png`;
     } else {
         if (gestureOutput.style.display === "block") {

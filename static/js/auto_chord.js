@@ -84,17 +84,21 @@ document.getElementById('pauseButton').addEventListener('click', () => {
 });
 
 
-// Optionally handle Enter key for user input
 document.getElementById('userInput').addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
+        event.target.blur(); // Trigger change event by blurring the input
         userInput();
     }
 });
 
 document.getElementById('userInput').addEventListener('input', () => {
-    userInput();
-}
-);
+    userInput(); // Trigger on input change
+});
+
+document.getElementById('userInput').addEventListener('change', () => {
+    userInput(); // Trigger when input value changes and loses focus
+});
+
 
 document.getElementById('skipButton').addEventListener('click', () => {
     skipChord();
@@ -132,3 +136,4 @@ function skipChord() {
         pauseSlide();
     }
 }
+

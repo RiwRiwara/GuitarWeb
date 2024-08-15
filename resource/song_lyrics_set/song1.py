@@ -4,7 +4,7 @@ song1_lyrics  = [
                 "id" : "1", #อดีของเนื้อเพลง ไล่เรียงตามลำดับ
                 "status" : "active", # สถานะ active 
                 "time": 0, #  ลำดับเวลาที่เริ่มเล่น
-                "chord": "C", # คอร์ด
+                "chord": "F", # คอร์ด
                 "lyrics": "Slip inside the",
                 
         },
@@ -12,7 +12,7 @@ song1_lyrics  = [
                 "id" : "2", 
                 "status" : "active",
                 "time": 1,
-                "chord": "G",
+                "chord": "D",
                 "lyrics": "eye of your ",
                 
         },
@@ -20,7 +20,7 @@ song1_lyrics  = [
                 "id" : "3",
                 "status" : "active",
                 "time": 2,
-                "chord": "Am",
+                "chord": "F",
                 "lyrics": "mind",
                 "next": 1800
         },
@@ -36,7 +36,7 @@ song1_lyrics  = [
                 "id" : "5",
                 "status" : "active",
                 "time": 3,
-                "chord": "E7",
+                "chord": "D",
                 "lyrics": "know you might"
         },
         {
@@ -51,7 +51,7 @@ song1_lyrics  = [
                 "id" : "7",
                 "status" : "active",
                 "time": 5,
-                "chord": "G",
+                "chord": "D",
                 "lyrics": ""
         },
     ],
