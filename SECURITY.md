@@ -1,21 +1,34 @@
-# Security Policy
+## Security Policy
 
-## Supported Versions
+### Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+This project is free and open source, and we do our best to maintain it. Below is the status of support for different versions:
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+| Version | Supported |
+| ------- | --------- |
+| latest  | ✅        |
+| older   | ❌        |
 
-## Reporting a Vulnerability
+### Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
+We welcome responsible disclosures and appreciate your help in making this project safer for everyone!
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+If you discover a vulnerability, please do the following:
+
+1. **Do not open a public issue.**  
+   Instead, send a detailed report to our maintainers at: [your-email@example.com]
+
+2. Include the following in your report:
+   - A clear description of the vulnerability
+   - Steps to reproduce the issue
+   - Your suggestions (if any) for how to fix it
+
+3. We’ll respond as quickly as we can and aim to resolve confirmed issues promptly.
+
+---
+
+### Open Source and Security
+
+This project is open to everyone — feel free to use, modify, and share it freely. While we strive to keep it secure, we make no guarantees. Users should always verify for themselves and use this software at their own risk.
+
+Stay safe and happy coding! 🚀
